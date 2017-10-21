@@ -25,13 +25,16 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-const App = StackNavigator({
-  Home: {screen: HomePage},
-  Map: {screen: MapPage},
-  Form: {screen: BathRoomForm},
-  Info: {screen: BathRoomInfo},
-  Review: {screen: ReviewPage}
-})
+const App = StackNavigator(
+  {
+    Home: {screen: HomePage},
+    Map: {screen: MapPage},
+    Form: {screen: BathRoomForm},
+    Info: {screen: BathRoomInfo},
+    Review: {screen: ReviewPage}
+  },
+    { headerMode: 'none' }
+)
 
 export default App
 
