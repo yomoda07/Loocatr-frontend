@@ -38,7 +38,12 @@ export default class MapPage extends Component<{}> {
       }
     ]
   }
+
+
+
 }
+
+
 
 calcDelta(lat, long, accuracy) {
   const oneDegreeofLongitudeInMeters = 111.32;
@@ -58,8 +63,14 @@ calcDelta(lat, long, accuracy) {
 }
 
 getBathrooms(lat, lng) {
-  console.log(lat)
-  console.log(lng)
+  var self = this;
+  axios.get(`http://localhost:3000/bathrooms?lat=${lat}&lng=${lng}`)
+  .then(function (response) {
+    self.setState({ nearestBathrooms: response.data})
+  })
+  .catch(function (error) {
+    console.log(error)
+  })
 }
 
 componentWillMount() {
@@ -69,8 +80,6 @@ componentWillMount() {
       const long = position.coords.longitude
       const accuracy = position.coords.accuracy
       this.calcDelta(lat, long, accuracy)
-      console.log(this.state.region)
-      console.log(this.state.nearestBathrooms)
       this.getBathrooms(lat, long)
     }
   )
@@ -103,11 +112,12 @@ render() {
             return (
               <MapView.Marker
                 key={index}
-                title={'marker'}
-                coordinate={bathroomData}
+                title={bathroomData.location_name}
+                coordinate={{longitude: bathroomData.longitude, latitude: bathroomData.latitude}}
               >
               </MapView.Marker>
             )
+            console.log('i just rendered something')
           })}
 
         </MapView> : null }
