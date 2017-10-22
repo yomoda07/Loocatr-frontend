@@ -8,6 +8,7 @@ import {
   Dimensions
 } from 'react-native';
 import MapView from 'react-native-maps';
+import axios from 'axios';
 
 const { width, height } = Dimensions.get('window')
 
@@ -56,6 +57,11 @@ calcDelta(lat, long, accuracy) {
   })
 }
 
+getBathrooms(lat, lng) {
+  console.log(lat)
+  console.log(lng)
+}
+
 componentWillMount() {
   navigator.geolocation.getCurrentPosition(
     (position) => {
@@ -65,7 +71,7 @@ componentWillMount() {
       this.calcDelta(lat, long, accuracy)
       console.log(this.state.region)
       console.log(this.state.nearestBathrooms)
-
+      this.getBathrooms(lat, long)
     }
   )
 }
