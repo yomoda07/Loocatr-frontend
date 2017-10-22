@@ -3,8 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View,
-  StatusBar
+  View
 } from 'react-native';
 
 const instructions = Platform.select({
@@ -18,7 +17,6 @@ export default class ReviewPage extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-      <StatusBar hidden={true}/>
         <Text style={styles.welcome}>
           I let you leave reviews
         </Text>
@@ -38,10 +36,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
