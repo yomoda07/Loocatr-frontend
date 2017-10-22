@@ -26,14 +26,14 @@ const instructions = Platform.select({
 });
 
 const App = StackNavigator(
+
   {
     Home: {screen: HomePage},
     Map: {screen: MapPage},
     Form: {screen: BathRoomForm},
     Info: {screen: BathRoomInfo},
     Review: {screen: ReviewPage}
-  },
-    { headerMode: 'none' }
+  }
 )
 
 export default App

@@ -17,6 +17,17 @@ const instructions = Platform.select({
 });
 
 export default class HomePage extends Component<{}> {
+  static navigationOptions = {
+    headerStyle: {
+      position: 'absolute',
+      top: 0,
+      left: 0
+    },
+    headerBackTitleStyle: {
+        opacity: 0,
+    },
+    headerTintColor: '#fff'
+  };
   render() {
     const { navigate } = this.props.navigation
     return (
