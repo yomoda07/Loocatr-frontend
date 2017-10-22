@@ -66,6 +66,7 @@ getBathrooms(lat, lng) {
   var self = this;
   axios.get(`http://localhost:3000/bathrooms?lat=${lat}&lng=${lng}`)
   .then(function (response) {
+    console.log(response)
     self.setState({ nearestBathrooms: response.data})
   })
   .catch(function (error) {
@@ -113,11 +114,10 @@ render() {
               <MapView.Marker
                 key={index}
                 title={bathroomData.location_name}
-                coordinate={{longitude: bathroomData.longitude, latitude: bathroomData.latitude}}
+                coordinate={{longitude: parseFloat(bathroomData.longitude), latitude: parseFloat(bathroomData.latitude)}}
               >
               </MapView.Marker>
             )
-            console.log('i just rendered something')
           })}
 
         </MapView> : null }
