@@ -16,8 +16,21 @@ import { Card, ListItem, Button } from 'react-native-elements';
 import Review from './Review';
 import ReviewPage from './ReviewPage';
 import Constraint from './Constraint';
+import topBar from '../images/center-logo2x.png'
 
 export default class BathRoomInfo extends Component {
+  static navigationOptions = {
+    headerStyle: {
+      position: 'absolute',
+      top: 0,
+      left: 0
+    },
+    headerBackTitleStyle: {
+        opacity: 0,
+    },
+    headerTintColor: '#fff'
+  };
+  
   constructor() {
     super();
     this.state = {
@@ -37,7 +50,8 @@ export default class BathRoomInfo extends Component {
     this.onReviewTextChange = this.onReviewTextChange.bind(this);
   }
   componentWillMount() {
-    const id = 1; // Replace with props later
+    const {state} = this.props.navigation;
+    const id = state.params.id; // Replace with props later
     axios.get(`https://obscure-tor-64284.herokuapp.com/bathrooms/${id}`)
     .then(response => this.setState({ bathroom: response.data}));
 
@@ -79,6 +93,10 @@ export default class BathRoomInfo extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Image
+          source={topBar}
+          style={styles.topBar}
+        />
         <ReviewPage
           modalVisible={this.state.modalVisible}
           setModalVisible={this.setModalVisible}
@@ -140,6 +158,10 @@ export default class BathRoomInfo extends Component {
 }
 
 const styles = StyleSheet.create({
+  topBar: {
+    height: 67,
+    width: 375
+  },
   swiperWrapper: {
     height: 200
   },
@@ -155,8 +177,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: '#F5FCFF'
   },
   headerStyle: {

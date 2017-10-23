@@ -141,6 +141,7 @@ export default class MapPage extends Component<{}> {
         </MapView> : null }
         <ScrollView>
           {this.state.nearestBathrooms.map((bathroomData, index) => {
+            const { navigate } = this.props.navigation;
             return (
               <FlatList style={{flex: 1}}
                 key={index}
@@ -149,7 +150,12 @@ export default class MapPage extends Component<{}> {
                 ]}
                 renderItem={({item}) => (
                   <View style={styles.list}>
-                    <Text style={styles.item}>{item.name}</Text>
+                    <Text 
+                    onPress={() =>
+                      navigate('Info', {id: bathroomData.id.toString()})
+                    }
+                    style={styles.item}>{item.name}
+                    </Text>
                     <View style={{width: '50%'}}>
                       <StarRating
                         disabled={true}
@@ -174,17 +180,16 @@ const styles = StyleSheet.create({
 container: {
   flex: 1,
   justifyContent: 'flex-start',
-  alignItems: 'center',
   backgroundColor: '#F5FCFF'
-},
-map: {
-  flex: 1,
-  width: width
-},
-topBar: {
-  height: 67,
-  width: 375
-},
+  },
+  map: {
+    flex: 1,
+    width: width
+  },
+  topBar: {
+    height: 67,
+    width: 375
+  },
   list: {
     borderWidth: 0.5,
     borderColor: '#d3d3d3',
