@@ -7,7 +7,9 @@ import {
   StatusBar,
   Dimensions,
   FlatList,
-  ScrollView
+  ScrollView,
+  List,
+  ListItem
 } from 'react-native';
 import MapView from 'react-native-maps';
 import axios from 'axios';
@@ -101,20 +103,22 @@ export default class MapPage extends Component<{}> {
                 >
                 </MapView.Marker>
               )
-              console.log('i just rendered something')
             })}
-
           </MapView> : null }
-
           <ScrollView>
             {this.state.nearestBathrooms.map((bathroomData, index) => {
                 return (
                   <FlatList style={{flex: 1}}
                     key={index}
                     data={[
-                      {key: bathroomData.location_name }
+                      {name: bathroomData.location_name, rating: bathroomData.average_ratings}
                     ]}
-                    renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+                    renderItem={({item}) => (
+                      <View style={styles.list}>
+                        <Text style={styles.item}>{item.name}</Text>
+                        <Text style={styles.item}>{item.rating}</Text>
+                      </View>
+                    )}
                   />
                 )
             })}
@@ -125,6 +129,10 @@ export default class MapPage extends Component<{}> {
 }
 
 const styles = StyleSheet.create({
+  list: {
+    borderWidth: 0.5, 
+    borderColor: '#d3d3d3'
+  },
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF'
