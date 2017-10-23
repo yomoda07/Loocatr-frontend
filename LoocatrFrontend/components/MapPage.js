@@ -171,6 +171,20 @@ export default class MapPage extends Component<{}> {
 }
 
 const styles = StyleSheet.create({
+container: {
+  flex: 1,
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  backgroundColor: '#F5FCFF'
+},
+map: {
+  flex: 1,
+  width: width
+},
+topBar: {
+  height: 67,
+  width: 375
+},
   list: {
     borderWidth: 0.5, 
     borderColor: '#d3d3d3',
@@ -180,17 +194,5 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 25,
     height: 44
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF'
-  },
-  map: {
-    flex: 1,
-    width: width
-  },
-  topBar: {
-    height: 67,
-    width: 375
   }
 });

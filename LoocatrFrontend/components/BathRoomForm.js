@@ -47,7 +47,7 @@ export default class BathRoomForm extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
@@ -56,15 +56,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
   topBar: {
     height: 67,
     width: 375,
-    flexDirection: 'row',
-    bottom: 261
+
   }
 });
