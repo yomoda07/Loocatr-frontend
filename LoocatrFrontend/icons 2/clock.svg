@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>•a/icon/clock</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="•a/icon/clock" stroke="#B2B7BB" stroke-width="1.75">
+            <path d="M12,3 C16.9631045,3 21,7.03689551 21,12 C21,16.9619186 16.9631045,21 12,21 C7.03689551,21 3,16.9619186 3,12 C3,7.03689551 7.03689551,3 12,3" id="Fill-4"></path>
+            <path d="M12,5.48266188 L12,12.7008771" id="Path-3"></path>
+            <path d="M17,12.2 L11.2,12.2" id="Path-3"></path>
+        </g>
+    </g>
+</svg>
