@@ -6,7 +6,8 @@ import {
   View,
   StatusBar,
   Dimensions,
-  FlatList
+  FlatList,
+  ScrollView
 } from 'react-native';
 import MapView from 'react-native-maps';
 import axios from 'axios';
@@ -105,18 +106,19 @@ export default class MapPage extends Component<{}> {
 
           </MapView> : null }
 
-
-          {this.state.nearestBathrooms.map((bathroomData, index) => {
-              return (
-                <FlatList style={{flex: 1}}
-                  key={index}
-                  data={[
-                    {key: bathroomData.location_name }
-                  ]}
-                  renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-                />
-              )
-          })}
+          <ScrollView>
+            {this.state.nearestBathrooms.map((bathroomData, index) => {
+                return (
+                  <FlatList style={{flex: 1}}
+                    key={index}
+                    data={[
+                      {key: bathroomData.location_name }
+                    ]}
+                    renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+                  />
+                )
+            })}
+          </ScrollView>
       </View>
     );
   }
