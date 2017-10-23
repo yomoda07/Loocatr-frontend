@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   list: {
     borderWidth: 0.5, 
     borderColor: '#d3d3d3',
-    padding: 5
+    padding: 5  
   },
   container: {
     flex: 1,
