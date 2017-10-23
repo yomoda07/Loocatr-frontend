@@ -9,15 +9,25 @@ import {
 } from 'react-native'
 import { SearchBar } from 'react-native-elements'
 import topBar from '../images/center-logo2x.png'
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import {
+  FormLabel,
+  FormInput,
+  FormValidationMessage,
+  CheckBox
+} from 'react-native-elements'
 
 export default class BathRoomForm extends Component<{}> {
+  constructor() {
+    super()
+
+    this.state = {
+        locationName: '',
+        address: '',
+        checked: false
+    }
+  }
+
+
   static navigationOptions = {
     headerStyle: {
       position: 'absolute',
@@ -29,6 +39,20 @@ export default class BathRoomForm extends Component<{}> {
     },
     headerTintColor: '#fff'
   };
+
+  updateLocationName(locationName) {
+    this.setState({ locationName: locationName  });
+  }
+
+  updateAddress(address) {
+    this.setState({ address: address  });
+  }
+
+  toggleCheckbox() {
+    console.log('toggling checkbox')
+
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -36,9 +60,64 @@ export default class BathRoomForm extends Component<{}> {
           source={topBar}
           style={styles.topBar}
         />
-        <Text style={styles.welcome}>
-          I let you add and edit bathrooms
-        </Text>
+
+        <FormLabel>Business Name</FormLabel>
+        <FormInput onChangeText={(locationName) => this.updateLocationName(locationName)}/>
+        <FormValidationMessage>Error message</FormValidationMessage>
+
+        <FormLabel>Address</FormLabel>
+        <FormInput onChangeText={(address) => this.updateAddress(address)}/>
+
+        <CheckBox
+          title='21+'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          checked={this.state.checked}
+          onPress={() => this.toggleCheckbox()}
+        />
+
+        <CheckBox
+          title='Customer-only'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          checked={this.state.checked}
+        />
+
+        <CheckBox
+          title='Key/code required'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          checked={this.state.checked}
+        />
+
+        <CheckBox
+          title='Handicap accessible'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          checked={this.state.checked}
+        />
+
+        <CheckBox
+          title='Stalls'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          checked={this.state.checked}
+        />
+
+        <CheckBox
+          title='Changing table'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          checked={this.state.checked}
+        />
+
+        <CheckBox
+          title='Family'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          checked={this.state.checked}
+        />
+
       </View>
     );
   }
