@@ -36,11 +36,6 @@ export default class BathRoomForm extends Component<{}> {
           source={topBar}
           style={styles.topBar}
         />
-        <SearchBar
-        noIcon
-        placeholder='Type Here...'
-        style={styles.search}
-        />
         <Text style={styles.welcome}>
           I let you add and edit bathrooms
         </Text>
@@ -71,13 +66,5 @@ const styles = StyleSheet.create({
     width: 375,
     flexDirection: 'row',
     bottom: 261
-  },
-  search: {
-    height: 60,
-    width: 200,
-    backgroundColor: '#3d2d75',
-    flexDirection: 'row',
-    bottom: 262,
-    color: '#fff'
   }
 });
