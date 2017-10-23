@@ -6,11 +6,13 @@ import {
   View,
   StatusBar,
   Dimensions,
-  Image
+  Image,
+  Linking
 } from 'react-native';
 import { Header } from 'react-native-elements'
 import MapView from 'react-native-maps'
 import topBar from '../images/center-logo2x.png'
+import axios from 'axios';
 
 const { width, height } = Dimensions.get('window')
 
@@ -38,18 +40,7 @@ export default class MapPage extends Component<{}> {
       longitudeDelta: null
     },
     nearestBathrooms: [
-      {
-        latitude: 37,
-        longitude: -122
-      },
-      {
-        latitude: 38,
-        longitude: -122
-      },
-      {
-        latitude: 39,
-        longitude: -122
-      }
+      // example of simple marker object: { latitude: 37, longitude: -122 }
     ]
   }
 }
@@ -71,6 +62,22 @@ calcDelta(lat, long, accuracy) {
   })
 }
 
+getBathrooms(lat, lng) {
+  var self = this;
+  axios.get(`http://localhost:3000/bathrooms?lat=${lat}&lng=${lng}`)
+  .then(function (response) {
+    console.log(response)
+    self.setState({ nearestBathrooms: response.data})
+  })
+  .catch(function (error) {
+    console.log(error)
+  })
+}
+
+openLocation(lat, lng) {
+  Linking.openURL(`http://maps.apple.com/?daddr=${lat},${lng}&dirflg=w`)
+}
+
 componentWillMount() {
   navigator.geolocation.getCurrentPosition(
     (position) => {
@@ -78,13 +85,10 @@ componentWillMount() {
       const long = position.coords.longitude
       const accuracy = position.coords.accuracy
       this.calcDelta(lat, long, accuracy)
-      console.log(this.state.region)
-      console.log(this.state.nearestBathrooms)
-
+      this.getBathrooms(lat, long)
     }
   )
 }
-
 
 marker() {
   return {
@@ -92,7 +96,6 @@ marker() {
     longitude: this.state.region.longitude
   }
 }
-
 
 render() {
 
@@ -108,25 +111,25 @@ render() {
         style={styles.map}
         initialRegion={this.state.region}
         >
-          <MapView.Marker
-            coordinate={this.marker()}
-            title = "Im here!"
-            description = "Home"
-          />
+        <MapView.Marker
+          coordinate={this.marker()}
+          title = "Im here!"
+          description = "Home"
+          onPress={() => this.openLocation(37.76871, -122.41482)}
+        />
 
-
-          {this.state.nearestBathrooms.map((bathroomData, index) => {
-            return (
-              <MapView.Marker
-                key={index}
-                title={'marker'}
-                coordinate={bathroomData}
-              >
-              </MapView.Marker>
+        {this.state.nearestBathrooms.map((bathroomData, index) => {
+          return (
+            <MapView.Marker
+              key={index}
+              title={bathroomData.location_name}
+              coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
+              onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
+            >
+            </MapView.Marker>
             )
           })}
-
-        </MapView> : null }
+      </MapView> : null }
     </View>
   );
 }
