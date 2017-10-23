@@ -87,7 +87,9 @@ export default class MapPage extends Component<{}> {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const lat = position.coords.latitude
+        console.log(lat)
         const long = position.coords.longitude
+        console.log(long)
         const accuracy = position.coords.accuracy
         this.calcDelta(lat, long, accuracy)
         this.getBathrooms(lat, long)
@@ -148,13 +150,15 @@ export default class MapPage extends Component<{}> {
                 renderItem={({item}) => (
                   <View style={styles.list}>
                     <Text style={styles.item}>{item.name}</Text>
-                    <StarRating 
-                      disabled={true}
-                      maxStars={5}
-                      rating={item.rating}
-                      starSize={30}
-                      starColor={'blue'}
-                    />
+                    <View style={{width: '50%'}}>
+                      <StarRating 
+                        disabled={true}
+                        maxStars={5}
+                        rating={item.rating}
+                        starSize={30}
+                        starColor={'blue'}
+                      />
+                    </View>
                   </View>
                 )}
               />
@@ -168,10 +172,10 @@ export default class MapPage extends Component<{}> {
 
 const styles = StyleSheet.create({
   list: {
-      borderWidth: 0.5, 
-      borderColor: '#d3d3d3',
-      padding: 5  
-    },
+    borderWidth: 0.5, 
+    borderColor: '#d3d3d3',
+    padding: 5  
+  },
   item: {
     padding: 10,
     fontSize: 25,
