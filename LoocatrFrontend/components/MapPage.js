@@ -5,7 +5,8 @@ import {
   Text,
   View,
   StatusBar,
-  Dimensions
+  Dimensions,
+  Linking
 } from 'react-native';
 import MapView from 'react-native-maps';
 import axios from 'axios';
@@ -58,6 +59,10 @@ getBathrooms(lat, lng) {
   })
 }
 
+openLocation(lat, lng) {
+  Linking.openURL(`http://maps.apple.com/?daddr=${lat},${lng}&dirflg=w`)
+}
+
 componentWillMount() {
   navigator.geolocation.getCurrentPosition(
     (position) => {
@@ -88,6 +93,7 @@ render() {
           coordinate={this.marker()}
           title = "Im here!"
           description = "Home"
+          onPress={() => this.openLocation(37.76871, -122.41482)}
         />
 
         {this.state.nearestBathrooms.map((bathroomData, index) => {
@@ -95,7 +101,8 @@ render() {
             <MapView.Marker
               key={index}
               title={bathroomData.location_name}
-              coordinate={{longitude: parseFloat(bathroomData.longitude), latitude: parseFloat(bathroomData.latitude)}}
+              coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
+              onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
             >
             </MapView.Marker>
             )
