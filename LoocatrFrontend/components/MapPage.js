@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import MapView from 'react-native-maps';
 import axios from 'axios';
+import StarRating from 'react-native-star-rating';
 
 const { width, height } = Dimensions.get('window')
 
@@ -63,7 +64,9 @@ export default class MapPage extends Component<{}> {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const lat = position.coords.latitude
+        console.log(lat)
         const long = position.coords.longitude
+        console.log(long)
         const accuracy = position.coords.accuracy
         this.calcDelta(lat, long, accuracy)
         this.getBathrooms(lat, long)
@@ -116,7 +119,13 @@ export default class MapPage extends Component<{}> {
                     renderItem={({item}) => (
                       <View style={styles.list}>
                         <Text style={styles.item}>{item.name}</Text>
-                        <Text style={styles.item}>{item.rating}</Text>
+                        <StarRating 
+                          disabled={true}
+                          maxStars={5}
+                          rating={item.rating}
+                          starSize={30}
+                          starColor={'blue'}
+                        />
                       </View>
                     )}
                   />
@@ -131,7 +140,8 @@ export default class MapPage extends Component<{}> {
 const styles = StyleSheet.create({
   list: {
     borderWidth: 0.5, 
-    borderColor: '#d3d3d3'
+    borderColor: '#d3d3d3',
+    padding: 5
   },
   container: {
     flex: 1,
@@ -143,7 +153,7 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 10,
-    fontSize: 18,
+    fontSize: 25,
     height: 44
   },
 });
