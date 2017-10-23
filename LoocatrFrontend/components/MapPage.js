@@ -24,26 +24,10 @@ export default class MapPage extends Component<{}> {
       longitudeDelta: null
     },
     nearestBathrooms: [
-      {
-        latitude: 37,
-        longitude: -122
-      },
-      {
-        latitude: 38,
-        longitude: -122
-      },
-      {
-        latitude: 39,
-        longitude: -122
-      }
+      // example of simple marker object: { latitude: 37, longitude: -122 }
     ]
   }
-
-
-
 }
-
-
 
 calcDelta(lat, long, accuracy) {
   const oneDegreeofLongitudeInMeters = 111.32;
@@ -66,6 +50,7 @@ getBathrooms(lat, lng) {
   var self = this;
   axios.get(`http://localhost:3000/bathrooms?lat=${lat}&lng=${lng}`)
   .then(function (response) {
+    console.log(response)
     self.setState({ nearestBathrooms: response.data})
   })
   .catch(function (error) {
@@ -85,14 +70,12 @@ componentWillMount() {
   )
 }
 
-
 marker() {
   return {
     latitude: this.state.region.latitude,
     longitude: this.state.region.longitude
   }
 }
-
 
 render() {
   return (
@@ -101,26 +84,23 @@ render() {
         style={styles.map}
         initialRegion={this.state.region}
         >
-          <MapView.Marker
-            coordinate={this.marker()}
-            title = "Im here!"
-            description = "Home"
-          />
+        <MapView.Marker
+          coordinate={this.marker()}
+          title = "Im here!"
+          description = "Home"
+        />
 
-
-          {this.state.nearestBathrooms.map((bathroomData, index) => {
-            return (
-              <MapView.Marker
-                key={index}
-                title={bathroomData.location_name}
-                coordinate={{longitude: bathroomData.longitude, latitude: bathroomData.latitude}}
-              >
-              </MapView.Marker>
+        {this.state.nearestBathrooms.map((bathroomData, index) => {
+          return (
+            <MapView.Marker
+              key={index}
+              title={bathroomData.location_name}
+              coordinate={{longitude: parseFloat(bathroomData.longitude), latitude: parseFloat(bathroomData.latitude)}}
+            >
+            </MapView.Marker>
             )
-            console.log('i just rendered something')
           })}
-
-        </MapView> : null }
+      </MapView> : null }
     </View>
   );
 }
