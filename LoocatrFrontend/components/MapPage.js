@@ -121,13 +121,6 @@ export default class MapPage extends Component<{}> {
           followUserLocation={true}
           initialRegion={this.state.region}
           >
-          <MapView.Marker
-            coordinate={this.marker()}
-            title = "Im here!"
-            description = "Home"
-            onPress={() => this.openLocation(37.76871, -122.41482)}
-          />
-
           {this.state.nearestBathrooms.map((bathroomData, index) => {
             return (
               <MapView.Marker
@@ -170,7 +163,7 @@ export default class MapPage extends Component<{}> {
                       <View style={styles.button}>
                       <Button
                         color="white"
-                        title="Directions"
+                        title="Loocate"
                         coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
                         onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
                       />
