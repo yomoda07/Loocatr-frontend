@@ -10,14 +10,30 @@ import {
   ScrollView,
   List,
   ListItem
+  Image,
+  Linking
 } from 'react-native';
-import MapView from 'react-native-maps';
+import { Header } from 'react-native-elements'
+import MapView from 'react-native-maps'
+import topBar from '../images/center-logo2x.png'
 import axios from 'axios';
 import StarRating from 'react-native-star-rating';
 
 const { width, height } = Dimensions.get('window')
 
 export default class MapPage extends Component<{}> {
+  static navigationOptions = {
+    headerStyle: {
+      position: 'absolute',
+      top: 0,
+      left: 0
+    },
+    headerBackTitleStyle: {
+        opacity: 0,
+    },
+    headerTintColor: '#fff'
+  };
+
   constructor() {
     super()
 
@@ -60,25 +76,38 @@ export default class MapPage extends Component<{}> {
     })
   }
 
-  componentWillMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude
-        console.log(lat)
-        const long = position.coords.longitude
-        console.log(long)
-        const accuracy = position.coords.accuracy
-        this.calcDelta(lat, long, accuracy)
-        this.getBathrooms(lat, long)
-      }
-    )
-  }
+getBathrooms(lat, lng) {
+  var self = this;
+  axios.get(`http://localhost:3000/bathrooms?lat=${lat}&lng=${lng}`)
+  .then(function (response) {
+    console.log(response)
+    self.setState({ nearestBathrooms: response.data})
+  })
+  .catch(function (error) {
+    console.log(error)
+  })
+}
 
-  marker() {
-    return {
-      latitude: this.state.region.latitude,
-      longitude: this.state.region.longitude
+openLocation(lat, lng) {
+  Linking.openURL(`http://maps.apple.com/?daddr=${lat},${lng}&dirflg=w`)
+}
+
+componentWillMount() {
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude
+      const long = position.coords.longitude
+      const accuracy = position.coords.accuracy
+      this.calcDelta(lat, long, accuracy)
+      this.getBathrooms(lat, long)
     }
+  )
+}
+
+marker() {
+  return {
+    latitude: this.state.region.latitude,
+    longitude: this.state.region.longitude
   }
 
   render() {
@@ -102,7 +131,8 @@ export default class MapPage extends Component<{}> {
                 <MapView.Marker
                   key={index}
                   title={bathroomData.location_name}
-                  coordinate={{longitude: bathroomData.longitude, latitude: bathroomData.latitude}}
+                  coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
+                  onPress={() => this.openLocation(37.76871, -122.41482)}
                 >
                 </MapView.Marker>
               )
@@ -156,4 +186,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     height: 44
   },
+  topBar: {
+    height: 67,
+    width: 375
+  }
 });
