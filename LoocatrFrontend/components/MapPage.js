@@ -5,13 +5,28 @@ import {
   Text,
   View,
   StatusBar,
-  Dimensions
+  Dimensions,
+  Image
 } from 'react-native';
-import MapView from 'react-native-maps';
+import { Header } from 'react-native-elements'
+import MapView from 'react-native-maps'
+import topBar from '../images/center-logo2x.png'
 
 const { width, height } = Dimensions.get('window')
 
 export default class MapPage extends Component<{}> {
+  static navigationOptions = {
+    headerStyle: {
+      position: 'absolute',
+      top: 0,
+      left: 0
+    },
+    headerBackTitleStyle: {
+        opacity: 0,
+    },
+    headerTintColor: '#fff'
+  };
+
   constructor() {
   super()
 
@@ -80,8 +95,15 @@ marker() {
 
 
 render() {
+
   return (
+
     <View style={styles.container}>
+    <Image
+      source={topBar}
+      style={styles.topBar}
+    />
+
       {this.state.region.latitude ? <MapView
         style={styles.map}
         initialRegion={this.state.region}
@@ -120,5 +142,9 @@ container: {
 map: {
   flex: 1,
   width: width
+},
+topBar: {
+  height: 67,
+  width: 375
 }
 });
