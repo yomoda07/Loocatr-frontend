@@ -11,7 +11,8 @@ import {
   FlatList,
   ScrollView,
   List,
-  ListItem
+  ListItem,
+  Button
 } from 'react-native';
 import { Header } from 'react-native-elements'
 import MapView from 'react-native-maps'
@@ -29,7 +30,7 @@ export default class MapPage extends Component<{}> {
       left: 0
     },
     headerBackTitleStyle: {
-        opacity: 0,
+      opacity: 0,
     },
     headerTintColor: '#fff'
   };
@@ -154,16 +155,26 @@ export default class MapPage extends Component<{}> {
                     onPress={() =>
                       navigate('Info', {id: bathroomData.id.toString()})
                     }
-                    style={styles.item}>{item.name}
+                    style={styles.item}
+                    >
+                      {item.name}
                     </Text>
-                    <View style={{width: '50%'}}>
+                    <View style={styles.listDetails}>
                       <StarRating
                         disabled={true}
                         maxStars={5}
                         rating={item.rating}
-                        starSize={30}
+                        starSize={40}
                         starColor={'blue'}
                       />
+                      <View style={styles.button}>
+                      <Button
+                        color="white"
+                        title="Directions"
+                        coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
+                        onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
+                      />
+                      </View>
                     </View>
                   </View>
                 )}
@@ -177,10 +188,17 @@ export default class MapPage extends Component<{}> {
 }
 
 const styles = StyleSheet.create({
-container: {
-  flex: 1,
-  justifyContent: 'flex-start',
-  backgroundColor: '#F5FCFF'
+  button: {
+    backgroundColor: '#007fff', 
+    borderRadius: 10, 
+    borderWidth: 1, 
+    overflow: 'hidden', 
+    borderColor: 'white'
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    backgroundColor: '#F5FCFF'
   },
   map: {
     flex: 1,
@@ -194,6 +212,11 @@ container: {
     borderWidth: 0.5,
     borderColor: '#d3d3d3',
     padding: 5
+  },
+  listDetails: {
+    flex: 1, 
+    flexDirection: 'row', 
+    justifyContent: 'space-between'
   },
   item: {
     padding: 10,
