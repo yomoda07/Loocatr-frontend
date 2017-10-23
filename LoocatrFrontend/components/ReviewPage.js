@@ -2,61 +2,80 @@ import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
+  Modal,
+  TouchableHighlight,
   Text,
-  View,
-  Image
+  TextInput,
+  View
 } from 'react-native';
-import topBar from '../images/center-logo2x.png'
+import { TextField } from 'react-native-material-textfield';
+import {FormLabel, Button, Icon, Card } from 'react-native-elements';
+import StarRating from 'react-native-star-rating';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-export default class ReviewPage extends Component<{}> {
-  static navigationOptions = {
-    headerStyle: {
-      position: 'absolute',
-      top: 0,
-      left: 0
-    },
-    headerBackTitleStyle: {
-        opacity: 0,
-    },
-    headerTintColor: '#fff'
-  };
-  render() {
-
-    return (
-      <View style={styles.container}>
-        <Image
-          source={topBar}
-          style={styles.topBar}
+export default (props) => (
+  <Modal
+    animationType="slide"
+    transparent={false}
+    visible={props.modalVisible}
+    onRequestClose={() => {alert("Modal has been closed.")}}
+    >
+   <View style={{marginTop: 100}}>
+    <Card>
+      <View style={styles.raitingsWrapper}>
+        <StarRating
+          maxStars={5}
+          // emptyStar={'ios-star-outline'}
+          // fullStar={'ios-star'}
+          // halfStar={'ios-star-half'}protect_from_forgery
+          // iconSet={'Ionicons'}
+          starSize={30}
+          starColor='#4029b9'
+          rating={props.newRatings}
+          selectedStar={(rating) => props.onStarRatingPress(rating)}
         />
-        <Text style={styles.welcome}>
-          I let you leave reviews
-        </Text>
+        <Icon style={styles.closeButton} name='close' onPress={() => {
+          props.setModalVisible(false);
+        }} />
       </View>
-    );
-  }
-}
+      <TextField
+         label='Review'
+         fontSize={20}
+         inputContainerPadding={80}
+         value={props.newRatings}
+         multiline={true}
+         onChangeText={ (text) => props.onReviewTextChange(text) }
+       />
+        <Button
+          raised
+          disabled={ !props.newReview }
+          backgroundColor='#007fff'
+          buttonStyle={{ marginTop: 10 }}
+          icon={{ name: 'add'}}
+          title='Submit'
+          onPress={() => props.submitReview(props.newRatings, props.newReview)}
+         />
+    </Card>
+   </View>
+  </Modal>
+);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  raitingsWrapper: {
+    height: 50,
+    flex: 1,
+    width: null,
+    marginTop: 5,
+    marginBottom: 25,
+    flexDirection: 'row'
   },
-  topBar: {
-    height: 67,
-    width: 375
+  closeButton: {
+    position: 'absolute',
+    right: 10
   }
 });
