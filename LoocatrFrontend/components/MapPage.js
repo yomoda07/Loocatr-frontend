@@ -69,7 +69,7 @@ export default class MapPage extends Component<{}> {
 
   getBathrooms(lat, lng) {
     var self = this;
-    axios.get(`http://localhost:3000/bathrooms?lat=${lat}&lng=${lng}`)
+    axios.get(`https://obscure-tor-64284.herokuapp.com/bathrooms?lat=${lat}&lng=${lng}`)
     .then(function (response) {
       console.log(response)
       self.setState({ nearestBathrooms: response.data})
@@ -113,7 +113,7 @@ export default class MapPage extends Component<{}> {
         style={styles.topBar}
       />
 
-        {this.state.region.latitude ? 
+        {this.state.region.latitude ?
           <MapView
           style={styles.map}
           showsUserLocation={true}
@@ -151,7 +151,7 @@ export default class MapPage extends Component<{}> {
                   <View style={styles.list}>
                     <Text style={styles.item}>{item.name}</Text>
                     <View style={{width: '50%'}}>
-                      <StarRating 
+                      <StarRating
                         disabled={true}
                         maxStars={5}
                         rating={item.rating}
@@ -186,9 +186,9 @@ topBar: {
   width: 375
 },
   list: {
-    borderWidth: 0.5, 
+    borderWidth: 0.5,
     borderColor: '#d3d3d3',
-    padding: 5  
+    padding: 5
   },
   item: {
     padding: 10,
