@@ -9,18 +9,23 @@ import iconFont from 'react-native-vector-icons/Fonts/FontAwesome.ttf';
 import StarRating from 'react-native-star-rating';
 
 export default ({ ratings, description, created_at }) => {
+  const dateTime = new Date(created_at);
+  const year = dateTime.getFullYear();
+  const month = dateTime.getMonth();
+  const date = dateTime.getDate();
+  const hours = dateTime.getHours();
+  let minutes = dateTime.getMinutes();
+  if (minutes < 10) {
+    minutes = '0' + minutes;
+  }
   return (
     <View style={styles.reviewWrapper}>
-      <Text style={styles.timeText}>{new Date(created_at).toString()}</Text>
+      <Text style={styles.timeText}>{`${month}/${date}/${year} - ${hours}:${minutes}`}</Text>
       <View style={styles.raitingsWrapper}>
         <StarRating
           disabled={true}
           halfStarEnabled
           maxStars={5}
-          // emptyStar={'ios-star-outline'}
-          // fullStar={'ios-star'}
-          // halfStar={'ios-star-half'}
-          // iconSet={'Ionicons'}
           rating={ratings}
           starSize={20}
           starStyle={{ width: 20 }}
