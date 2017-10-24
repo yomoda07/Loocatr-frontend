@@ -18,7 +18,8 @@ import {
   FormInput,
   FormValidationMessage,
   CheckBox,
-  Button
+  Button,
+  Icon
 } from 'react-native-elements'
 import axios from 'axios'
 
@@ -168,6 +169,10 @@ export default class BathRoomForm extends Component<{}> {
           <FormInput onChangeText={(address) => this.updateAddress(address)}/>
         </View>
         <View style={styles.toggle}>
+          <Icon
+            name='local-bar'
+            color='#7a8288'
+          />
           <ToggleSwitch
              isOn={false}
              onColor='#3d2d75'
@@ -180,9 +185,9 @@ export default class BathRoomForm extends Component<{}> {
         </View>
 
         <View style={styles.toggle}>
-          <Image
-            source={customer}
-            style={styles.icon}
+          <Icon
+            name='attach-money'
+            color='#7a8288'
           />
           <ToggleSwitch
              isOn={false}
@@ -202,6 +207,11 @@ export default class BathRoomForm extends Component<{}> {
         </View>
 
         <View style={styles.toggle}>
+          <Icon
+            name='accessible'
+            color='#7a8288'
+          />
+
           <ToggleSwitch
              isOn={false}
              onColor='#3d2d75'
@@ -209,11 +219,16 @@ export default class BathRoomForm extends Component<{}> {
              label='Handicap accessible'
              labelStyle={{color: '#7a8288', fontWeight: '900'}}
              size='small'
+             alignItems='flex-end'
              onToggle={ (isOn) => console.log('changed to : ', isOn) }
           />
         </View>
 
         <View style={styles.toggle}>
+          <Icon
+            name='child-friendly'
+            color='#7a8288'
+          />
           <ToggleSwitch
              isOn={false}
              onColor='#3d2d75'
@@ -226,10 +241,16 @@ export default class BathRoomForm extends Component<{}> {
         </View>
 
         <View style={styles.toggle}>
+          <Icon
+            name='torsos-all'
+            type='foundation'
+            color='#7a8288'
+          />
           <ToggleSwitch
              isOn={false}
              onColor='#3d2d75'
              offColor='grey'
+             paddingLeft='10'
              label='Family'
              labelStyle={{color: '#7a8288', fontWeight: '900'}}
              size='small'
@@ -306,11 +327,14 @@ const styles = StyleSheet.create({
   icon: {
 
   },
+
   toggle: {
+    display: 'flex',
+    flexDirection: 'row',
     flex: 1,
     height: 60,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingRight: 5,
     fontFamily: 'verdana',
     fontSize: 16,
