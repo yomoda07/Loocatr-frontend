@@ -115,23 +115,24 @@ export default class MapPage extends Component<{}> {
       />
 
         {this.state.region.latitude ?
-          <MapView
+        <MapView
           style={styles.map}
           showsUserLocation={true}
           followUserLocation={true}
           initialRegion={this.state.region}
-          >
+        >
           {this.state.nearestBathrooms.map((bathroomData, index) => {
             return (
               <MapView.Marker
+                pinColor={'blue'}
                 key={index}
                 title={bathroomData.location_name}
                 coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
                 onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
               >
               </MapView.Marker>
-              )
-            })}
+            )
+          })}
         </MapView> : null }
         <ScrollView>
           {this.state.nearestBathrooms.map((bathroomData, index) => {
