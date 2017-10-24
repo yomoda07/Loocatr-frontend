@@ -25,7 +25,7 @@ export default class BathRoomForm extends Component<{}> {
     this.state = {
         locationName: '',
         address: '',
-        checked: false
+        over_21: false
     }
   }
 
@@ -50,13 +50,17 @@ export default class BathRoomForm extends Component<{}> {
     this.setState({ address: address  });
   }
 
-  toggleCheckbox() {
-    console.log('toggling checkbox')
+  toggleOver21() {
+    if (this.state.over_21 === false) {
+      this.setState({ over_21: true })
+    } else {
+      this.setState({ over_21: false })
+    }
   }
 
   submitReview() {
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    axios.post('https://obscure-tor-64284.herokuapp.com/bathrooms/',  {
+    axios.post('https://localhost:3000/bathrooms/',  {
       locationName: '',
       address: ''
     })
@@ -85,8 +89,8 @@ export default class BathRoomForm extends Component<{}> {
           title='21+'
           checkedIcon='dot-circle-o'
           uncheckedIcon='circle-o'
-          checked={this.state.checked}
-          onPress={() => this.toggleCheckbox()}
+          checked={this.state.over_21}
+          onPress={() => this.toggleOver21()}
         />
 
         <CheckBox
