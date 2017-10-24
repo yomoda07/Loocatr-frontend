@@ -74,7 +74,6 @@ export default class MapPage extends Component<{}> {
     var self = this;
     axios.get(`https://obscure-tor-64284.herokuapp.com/bathrooms?lat=${lat}&lng=${lng}`)
     .then(function (response) {
-      console.log(response)
       self.setState({ nearestBathrooms: response.data})
     })
     .catch(function (error) {
@@ -90,9 +89,7 @@ export default class MapPage extends Component<{}> {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const lat = position.coords.latitude
-        console.log(lat)
         const long = position.coords.longitude
-        console.log(long)
         const accuracy = position.coords.accuracy
         this.calcDelta(lat, long, accuracy)
         this.getBathrooms(lat, long)

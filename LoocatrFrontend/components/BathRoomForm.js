@@ -23,13 +23,10 @@ import {
 } from 'react-native-elements'
 import axios from 'axios'
 
-let geolocationCoordinates = []
-
 
 export default class BathRoomForm extends Component<{}> {
   constructor() {
     super()
-
     this.state = {
         location_name: 'anson',
         latitude: 69,
@@ -43,6 +40,7 @@ export default class BathRoomForm extends Component<{}> {
     }
   }
 
+
   static navigationOptions = {
     headerStyle: {
       position: 'absolute',
@@ -55,100 +53,53 @@ export default class BathRoomForm extends Component<{}> {
     headerTintColor: '#fff'
   };
 
-
-
+  // following 2 functions can be more DRY:
   updateLocationName(locationName) {
-    console.log(this.state.location_name)
-    this.setState({ location_name: locationName  });
+    this.setState({ location_name: locationName });
   }
 
   updateAddress(address) {
-    this.setState({ address: address  });
+    this.setState({ address: address });
   }
 
-  toggleOver21() {
-    if (this.state.over_21 === false) {
-      this.setState({ over_21: true })
-    } else {
-      this.setState({ over_21: false })
-    }
-  }
+  toggleAccessibilityState(state, option) {
+    var updateState = {}
+    updateState[state] = option
 
-  toggleHandicapped() {
-    if (this.state.handicapped === false) {
-      this.setState({ handicapped: true })
-    } else {
-      this.setState({ handicapped: false })
-    }
-  }
-
-  toggleFamily() {
-    if (this.state.family === false) {
-      this.setState({ family: true })
-    } else {
-      this.setState({ family: false })
-    }
-  }
-
-  toggleCustomerOnly() {
-    if (this.state.customer_only === false) {
-      this.setState({ customer_only: true })
-    } else {
-      this.setState({ customer_only: false })
-    }
+    this.setState(updateState)
   }
 
   geolocateAddress(address) {
-    // console.log('making request to google')
-    var self = this
+    var geolocationLat
+    var geolocationLng
 
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDvzsWpabMDZzoKw5hpo5RODzQhqzE4dhg&address=${address}`)
     .then(response => {
-      return geolocationLat = response.data.results[0].geometry.location.lat
-      return geolocationLng = response.data.results[0].geometry.location.lng
+      var geolocationLat = response.data.results[0].geometry.location.lat
+      var geolocationLng = response.data.results[0].geometry.location.lng
 
-      // console.log('printing state after setting it:')
-      // console.log(this.state)
-      // return geolocationCoordinates = [geolocationLat, geolocationLng]
+      this.setState({
+        latitude: geolocationLat,
+        longitude: geolocationLng
+      })
     });
-    self.setState({
-      latitude: geolocationLat,
-      longitude: geolocationLng
-    })
   }
 
   addBathroom(bathroomData) {
-    // console.log('printing bathroomData:')
-    // console.log(bathroomData)
-    this.geolocateAddress('dev bootcamp sf')
-
-    console.log('printing state after calling geolocateAddress:')
-    console.log(this.state)
+    const { navigate } = this.props.navigation;
 
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    axios.post('http://localhost:3000/bathrooms/',  bathroomData
-      // location_name: bathroomData.location_name,
-      // latitude: geolocationCoordinates[0],
-      // longitude: geolocationCoordinates[1],
-      // over_21: bathroomData.over_21,
-      // handicapped: bathroomData.handicapped,
-      // family: bathroomData.family,
-      // customer_only: bathroomData.customer_only
-    )
+    axios.post('https://obscure-tor-64284.herokuapp.com/bathrooms/',  bathroomData)
     .then(response => {
-      // console.log('printing google API response:')
-      // console.log(geolocationCoordinates)
-      // console.log('printing backend response:')
-      // console.log(response)
+      var bathroomId = response.data.id
+      console.log(bathroomId)
+      navigate('Info', { id: bathroomId.toString() })
     });
   }
 
-
   render() {
     return (
-
-
       <View style={styles.container}>
         <Image
           source={topBar}
@@ -166,7 +117,10 @@ export default class BathRoomForm extends Component<{}> {
         </View>
         <View style={styles.input}>
           <FormLabel>Address</FormLabel>
-          <FormInput onChangeText={(address) => this.updateAddress(address)}/>
+          <FormInput
+          onChangeText={(address) => this.updateAddress(address)}
+          onBlur={(address) => this.geolocateAddress(address.nativeEvent.text)}
+          />
         </View>
         <View style={styles.toggle}>
           <Icon
@@ -180,10 +134,9 @@ export default class BathRoomForm extends Component<{}> {
              label='Age restrictions 21+'
              labelStyle={{color: '#7a8288', fontWeight: '900'}}
              size='small'
-             onToggle={ (isOn) => console.log('changed to : ', isOn) }
+             onToggle={ (isOn) => this.toggleAccessibilityState('over_21', isOn) }
           />
         </View>
-
         <View style={styles.toggle}>
           <Icon
             name='attach-money'
@@ -196,16 +149,14 @@ export default class BathRoomForm extends Component<{}> {
              label='Customer only'
              labelStyle={{color: '#7a8288', fontWeight: '900'}}
              size='small'
-             onToggle={ (isOn) => console.log('changed to : ', isOn) }
+             onToggle={ (isOn) => this.toggleAccessibilityState('customer_only', isOn) }
           />
         </View>
-
        <View style={styles.divider}>
           <Text style={styles.divideText}>
             AMENITIES
           </Text>
         </View>
-
         <View style={styles.toggle}>
           <Icon
             name='accessible'
@@ -219,8 +170,7 @@ export default class BathRoomForm extends Component<{}> {
              label='Handicap accessible'
              labelStyle={{color: '#7a8288', fontWeight: '900'}}
              size='small'
-             alignItems='flex-end'
-             onToggle={ (isOn) => console.log('changed to : ', isOn) }
+             onToggle={ (isOn) => this.toggleAccessibilityState('handicapped', isOn) }
           />
         </View>
 
@@ -233,28 +183,11 @@ export default class BathRoomForm extends Component<{}> {
              isOn={false}
              onColor='#3d2d75'
              offColor='grey'
-             label='changing table'
-             labelStyle={{color: '#7a8288', fontWeight: '900'}}
-             size='small'
-             onToggle={ (isOn) => console.log('changed to : ', isOn) }
-          />
-        </View>
-
-        <View style={styles.toggle}>
-          <Icon
-            name='torsos-all'
-            type='foundation'
-            color='#7a8288'
-          />
-          <ToggleSwitch
-             isOn={false}
-             onColor='#3d2d75'
-             offColor='grey'
              paddingLeft='10'
              label='Family'
              labelStyle={{color: '#7a8288', fontWeight: '900'}}
              size='small'
-             onToggle={ (isOn) => console.log('changed to : ', isOn) }
+             onToggle={ (isOn) => this.toggleAccessibilityState('family', isOn) }
           />
         </View>
         <View style={styles.buttonDiv}>
@@ -265,15 +198,13 @@ export default class BathRoomForm extends Component<{}> {
             fontWeight= 'bold'
             raised
             title='Submit Bathroom'
-            onPress={() => this.submitReview(this.state)}
+
+
+            onPress={() => this.addBathroom(this.state)}
           />
         </View>
-
-
-
       </ScrollView>
       </View>
-
     );
   }
 }
