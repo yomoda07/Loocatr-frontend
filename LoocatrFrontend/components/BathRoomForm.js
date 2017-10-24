@@ -19,6 +19,8 @@ import {
 } from 'react-native-elements'
 import axios from 'axios'
 
+let geolocationCoordinates = []
+
 export default class BathRoomForm extends Component<{}> {
   constructor() {
     super()
@@ -45,6 +47,8 @@ export default class BathRoomForm extends Component<{}> {
     },
     headerTintColor: '#fff'
   };
+
+
 
   updateLocationName(locationName) {
     console.log(this.state.location_name)
@@ -87,14 +91,32 @@ export default class BathRoomForm extends Component<{}> {
     }
   }
 
+  geolocateAddress(address) {
+    console.log('making post to google')
+
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDvzsWpabMDZzoKw5hpo5RODzQhqzE4dhg&address=${address}`)
+    .then(response => {
+      geolocationLat = response.data.results[0].geometry.location.lat
+      geolocationLng = response.data.results[0].geometry.location.lng
+      return geolocationCoordinates = [geolocationLat, geolocationLng]
+    });
+  }
+
   addBathroom(bathroomData) {
-    console.log(data)
+    // console.log('printing bathroomData:')
+    // console.log(bathroomData)
+    var addressCoordinates = this.geolocateAddress('dev bootcamp sf')
+
+
 
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.post('http://localhost:3000/bathrooms/',  bathroomData)
     .then(response => {
-      console.log(response)
-      // this.setState({ reviews: [response.data, ...this.state.reviews] });
+      console.log('printing google API response:')
+      console.log(geolocationCoordinates)
+      // console.log('printing backend response:')
+      // console.log(response)
     });
   }
 
