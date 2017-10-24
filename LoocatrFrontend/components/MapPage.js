@@ -14,7 +14,7 @@ import {
   ListItem,
   Button
 } from 'react-native';
-import { Header } from 'react-native-elements'
+import { Header, Icon } from 'react-native-elements'
 import MapView from 'react-native-maps'
 import topBar from '../images/center-logo2x.png'
 import axios from 'axios'
@@ -111,6 +111,21 @@ export default class MapPage extends Component<{}> {
     return dist
   }
 
+  renderIcon(handicapped, family, over21, customer) {
+    if (handicapped == true) {
+      return <Icon name='accessible' />
+    } 
+    else if (family == true) {
+      return <Icon name='baby-buggy' />
+    } 
+    else if (over21 == true) {
+      return <Icon name='attach-money' />
+    }
+    else if (customer == true) {
+      return <Icon name='mid-wine' />
+    }
+  }
+
   render() {
     return (
 
@@ -126,12 +141,12 @@ export default class MapPage extends Component<{}> {
           showsUserLocation={true}
           followUserLocation={true}
           initialRegion={this.state.region}
-
-          >
+        >
           {this.state.nearestBathrooms.map((bathroomData, index) => {
             return (
               <MapView.Marker
                 pinColor={'blue'}
+                // image={require('../images/')}
                 key={index}
                 title={bathroomData.location_name}
                 coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
@@ -164,6 +179,9 @@ export default class MapPage extends Component<{}> {
                       <Text style={styles.distance}>
                         {this.distance(bathroomData.latitude, bathroomData.longitude)} mi
                       </Text>
+                    </View>
+                    <View style={styles.icon}>
+                       {this.renderIcon(bathroomData.handicapped, bathroomData.family, bathroomData.over_21, bathroomData.customer_only)}
                     </View>
                     <View style={styles.listDetails}>
                       <View style={{padding: 3}}>
@@ -225,6 +243,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  icon: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '50%',
   },
   item: {
     padding: 5,
