@@ -98,13 +98,6 @@ export default class MapPage extends Component<{}> {
     )
   }
 
-  marker() {
-    return {
-      latitude: this.state.region.latitude,
-      longitude: this.state.region.longitude
-    }
-  }
-
   render() {
     return (
 
@@ -120,7 +113,8 @@ export default class MapPage extends Component<{}> {
           showsUserLocation={true}
           followUserLocation={true}
           initialRegion={this.state.region}
-        >
+
+          >
           {this.state.nearestBathrooms.map((bathroomData, index) => {
             return (
               <MapView.Marker
