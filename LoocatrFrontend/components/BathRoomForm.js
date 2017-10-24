@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   StatusBar,
   Image
 } from 'react-native'
@@ -13,7 +14,8 @@ import {
   FormLabel,
   FormInput,
   FormValidationMessage,
-  CheckBox
+  CheckBox,
+  Button
 } from 'react-native-elements'
 
 export default class BathRoomForm extends Component<{}> {
@@ -50,11 +52,22 @@ export default class BathRoomForm extends Component<{}> {
 
   toggleCheckbox() {
     console.log('toggling checkbox')
+  }
 
+  submitReview() {
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    axios.post('https://obscure-tor-64284.herokuapp.com/bathrooms/',  {
+      locationName: '',
+      address: ''
+    })
+    .then(response => {
+      this.setState({ reviews: [response.data, ...this.state.reviews] });
+    });
   }
 
   render() {
     return (
+      <ScrollView>
       <View style={styles.container}>
         <Image
           source={topBar}
@@ -118,7 +131,19 @@ export default class BathRoomForm extends Component<{}> {
           checked={this.state.checked}
         />
 
+
+        <Button
+          raised
+          backgroundColor='#007fff'
+          buttonStyle={{ marginTop: 10, marginBottom: 20 }}
+          icon={{ name: 'add'}}
+          title='Add Bathroom'
+          onPress={() => props.submitReview(props.newRatings, props.newReview)}
+         />
+
       </View>
+      </ScrollView>
+
     );
   }
 }
