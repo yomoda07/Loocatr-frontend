@@ -158,7 +158,7 @@ export default class MapPage extends Component<{}> {
                         maxStars={5}
                         rating={item.rating}
                         starSize={40}
-                        starColor={'blue'}
+                        starColor={'#4029b9'}
                       />
                       <View style={styles.button}>
                       <Button
