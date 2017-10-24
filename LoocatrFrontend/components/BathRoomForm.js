@@ -20,6 +20,9 @@ import {
   CheckBox,
   Button
 } from 'react-native-elements'
+import axios from 'axios'
+
+let geolocationCoordinates = []
 
 
 export default class BathRoomForm extends Component<{}> {
@@ -27,9 +30,9 @@ export default class BathRoomForm extends Component<{}> {
     super()
 
     this.state = {
-        locationName: '',
-        latitude: '',
-        longitude: '',
+        location_name: 'anson',
+        latitude: 69,
+        longitude: 69,
         over_21: false,
         handicapped: false,
         family: false,
@@ -51,8 +54,11 @@ export default class BathRoomForm extends Component<{}> {
     headerTintColor: '#fff'
   };
 
+
+
   updateLocationName(locationName) {
-    this.setState({ locationName: locationName  });
+    console.log(this.state.location_name)
+    this.setState({ location_name: locationName  });
   }
 
   updateAddress(address) {
@@ -91,22 +97,50 @@ export default class BathRoomForm extends Component<{}> {
     }
   }
 
-  submitReview(data) {
-    console.log(data)
-    // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    // axios.post('https://localhost:3000/bathrooms/',  {
-    //   locationName: '',
-    //   latitude: '',
-    //   longitude: '',
-    //   over_21: false,
-    //   handicapped: false,
-    //   family: false,
-    //   customer_only: false
-    // })
-    // .then(response => {
-    //   console.log(response)
-      // this.setState({ reviews: [response.data, ...this.state.reviews] });
-    // });
+  geolocateAddress(address) {
+    // console.log('making request to google')
+    var self = this
+
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDvzsWpabMDZzoKw5hpo5RODzQhqzE4dhg&address=${address}`)
+    .then(response => {
+      return geolocationLat = response.data.results[0].geometry.location.lat
+      return geolocationLng = response.data.results[0].geometry.location.lng
+
+      // console.log('printing state after setting it:')
+      // console.log(this.state)
+      // return geolocationCoordinates = [geolocationLat, geolocationLng]
+    });
+    self.setState({
+      latitude: geolocationLat,
+      longitude: geolocationLng
+    })
+  }
+
+  addBathroom(bathroomData) {
+    // console.log('printing bathroomData:')
+    // console.log(bathroomData)
+    this.geolocateAddress('dev bootcamp sf')
+
+    console.log('printing state after calling geolocateAddress:')
+    console.log(this.state)
+
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    axios.post('http://localhost:3000/bathrooms/',  bathroomData
+      // location_name: bathroomData.location_name,
+      // latitude: geolocationCoordinates[0],
+      // longitude: geolocationCoordinates[1],
+      // over_21: bathroomData.over_21,
+      // handicapped: bathroomData.handicapped,
+      // family: bathroomData.family,
+      // customer_only: bathroomData.customer_only
+    )
+    .then(response => {
+      // console.log('printing google API response:')
+      // console.log(geolocationCoordinates)
+      // console.log('printing backend response:')
+      // console.log(response)
+    });
   }
 
 
@@ -213,6 +247,7 @@ export default class BathRoomForm extends Component<{}> {
             onPress={() => this.submitReview(this.state)}
           />
         </View>
+
 
 
       </ScrollView>
