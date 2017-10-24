@@ -19,13 +19,6 @@ import * as firebase from 'firebase';
 import RNFetchBlob from 'react-native-fetch-blob'
 import ImagePicker from 'react-native-image-crop-picker'
 
-const config = {
-  apiKey: "AIzaSyBf0Jc9sL7ZPenW1W5faU9O8MAB2TsgHno",
-  databaseURL: "https://loocatr.firebaseio.com",
-  storageBucket: "loocatr.appspot.com"
-};
-firebase.initializeApp(config);
-
 export default class ReviewPage extends Component {
   constructor(props) {
     super(props);
