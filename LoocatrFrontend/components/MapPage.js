@@ -161,7 +161,7 @@ export default class MapPage extends Component<{}> {
                       >
                         {item.name}
                       </Text>
-                      <Text style={{color: 'grey'}}>
+                      <Text style={styles.distance}>
                         {this.distance(bathroomData.latitude, bathroomData.longitude)} mi
                       </Text>
                     </View>
@@ -228,5 +228,9 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 20,
     height: 44
+  },
+  distance: {
+    color: 'grey',
+    padding: 10
   }
 });
