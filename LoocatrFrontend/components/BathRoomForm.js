@@ -24,9 +24,9 @@ export default class BathRoomForm extends Component<{}> {
     super()
 
     this.state = {
-        locationName: '',
-        latitude: '',
-        longitude: '',
+        location_name: 'anson',
+        latitude: 69,
+        longitude: 69,
         over_21: false,
         handicapped: false,
         family: false,
@@ -47,7 +47,8 @@ export default class BathRoomForm extends Component<{}> {
   };
 
   updateLocationName(locationName) {
-    this.setState({ locationName: locationName  });
+    console.log(this.state.location_name)
+    this.setState({ location_name: locationName  });
   }
 
   updateAddress(address) {
@@ -86,22 +87,15 @@ export default class BathRoomForm extends Component<{}> {
     }
   }
 
-  submitReview(data) {
+  addBathroom(bathroomData) {
     console.log(data)
-    // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    // axios.post('https://localhost:3000/bathrooms/',  {
-    //   locationName: '',
-    //   latitude: '',
-    //   longitude: '',
-    //   over_21: false,
-    //   handicapped: false,
-    //   family: false,
-    //   customer_only: false
-    // })
-    // .then(response => {
-    //   console.log(response)
+
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    axios.post('http://localhost:3000/bathrooms/',  bathroomData)
+    .then(response => {
+      console.log(response)
       // this.setState({ reviews: [response.data, ...this.state.reviews] });
-    // });
+    });
   }
 
   render() {
@@ -158,7 +152,7 @@ export default class BathRoomForm extends Component<{}> {
           buttonStyle={{ marginTop: 10, marginBottom: 20 }}
           icon={{ name: 'add'}}
           title='Add Bathroom'
-          onPress={() => this.submitReview(this.state)}
+          onPress={() => this.addBathroom(this.state)}
          />
 
       </View>
