@@ -141,7 +141,9 @@ export default class ReviewPage extends Component {
               icon={{ name: 'add'}}
               title='Post Review'
               onPress={() => {
-                this.uploadImage();
+                if (this.state.imageBolb) {
+                  this.uploadImage();
+                }
                 this.props.submitReview(this.props.newRatings, this.props.newReview);
               }}
             />
