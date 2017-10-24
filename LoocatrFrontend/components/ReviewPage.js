@@ -19,13 +19,6 @@ import * as firebase from 'firebase';
 import RNFetchBlob from 'react-native-fetch-blob'
 import ImagePicker from 'react-native-image-crop-picker'
 
-const config = {
-  apiKey: "AIzaSyBf0Jc9sL7ZPenW1W5faU9O8MAB2TsgHno",
-  databaseURL: "https://loocatr.firebaseio.com",
-  storageBucket: "loocatr.appspot.com"
-};
-firebase.initializeApp(config);
-
 export default class ReviewPage extends Component {
   constructor(props) {
     super(props);
@@ -60,7 +53,7 @@ export default class ReviewPage extends Component {
       this.setState({ loading: false });
     })
     .catch((error) => {
-      console.log(error);
+      this.setState({ loading: false });
     })
   }
 
@@ -141,7 +134,9 @@ export default class ReviewPage extends Component {
               icon={{ name: 'add'}}
               title='Post Review'
               onPress={() => {
-                this.uploadImage();
+                if (this.state.imageBolb) {
+                  this.uploadImage();
+                }
                 this.props.submitReview(this.props.newRatings, this.props.newReview);
               }}
             />
