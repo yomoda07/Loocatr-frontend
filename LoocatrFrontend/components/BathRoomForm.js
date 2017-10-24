@@ -57,43 +57,18 @@ export default class BathRoomForm extends Component<{}> {
 
 
   updateLocationName(locationName) {
-    this.setState({ location_name: locationName  });
+    this.setState({ location_name: locationName });
   }
 
   updateAddress(address) {
-    this.setState({ address: address  });
+    this.setState({ address: address });
   }
 
-  toggleOver21() {
-    if (this.state.over_21 === false) {
-      this.setState({ over_21: true })
-    } else {
-      this.setState({ over_21: false })
-    }
-  }
+  toggleAccessibilityState(state, option) {
+    var updateState = {}
+    updateState[state] = option
 
-  toggleHandicapped() {
-    if (this.state.handicapped === false) {
-      this.setState({ handicapped: true })
-    } else {
-      this.setState({ handicapped: false })
-    }
-  }
-
-  toggleFamily() {
-    if (this.state.family === false) {
-      this.setState({ family: true })
-    } else {
-      this.setState({ family: false })
-    }
-  }
-
-  toggleCustomerOnly() {
-    if (this.state.customer_only === false) {
-      this.setState({ customer_only: true })
-    } else {
-      this.setState({ customer_only: false })
-    }
+    this.setState(updateState)
   }
 
   geolocateAddress(address) {
@@ -111,7 +86,6 @@ export default class BathRoomForm extends Component<{}> {
         longitude: geolocationLng
       })
     });
-
   }
 
   addBathroom(bathroomData) {
@@ -121,13 +95,8 @@ export default class BathRoomForm extends Component<{}> {
     });
   }
 
-
-
-
   render() {
     return (
-
-
       <View style={styles.container}>
         <Image
           source={topBar}
@@ -158,7 +127,7 @@ export default class BathRoomForm extends Component<{}> {
              label='Age restrictions 21+'
              labelStyle={{color: '#7a8288', fontWeight: '900'}}
              size='small'
-             onToggle={ (isOn) => console.log('changed to : ', isOn) }
+             onToggle={ (isOn) => this.toggleAccessibilityState('over_21', isOn) }
           />
         </View>
 
@@ -174,7 +143,7 @@ export default class BathRoomForm extends Component<{}> {
              label='Customer only'
              labelStyle={{color: '#7a8288', fontWeight: '900'}}
              size='small'
-             onToggle={ (isOn) => console.log('changed to : ', isOn) }
+             onToggle={ (isOn) => this.toggleAccessibilityState('customer_only', isOn) }
           />
         </View>
 
@@ -192,19 +161,7 @@ export default class BathRoomForm extends Component<{}> {
              label='Handicap accessible'
              labelStyle={{color: '#7a8288', fontWeight: '900'}}
              size='small'
-             onToggle={ (isOn) => console.log('changed to : ', isOn) }
-          />
-        </View>
-
-        <View style={styles.toggle}>
-          <ToggleSwitch
-             isOn={false}
-             onColor='#3d2d75'
-             offColor='grey'
-             label='changing table'
-             labelStyle={{color: '#7a8288', fontWeight: '900'}}
-             size='small'
-             onToggle={ (isOn) => console.log('changed to : ', isOn) }
+             onToggle={ (isOn) => this.toggleAccessibilityState('handicapped', isOn) }
           />
         </View>
 
@@ -216,7 +173,7 @@ export default class BathRoomForm extends Component<{}> {
              label='Family'
              labelStyle={{color: '#7a8288', fontWeight: '900'}}
              size='small'
-             onToggle={ (isOn) => console.log('changed to : ', isOn) }
+             onToggle={ (isOn) => this.toggleAccessibilityState('family', isOn) }
           />
         </View>
         <View style={styles.buttonDiv}>
