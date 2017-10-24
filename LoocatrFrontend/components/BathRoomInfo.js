@@ -38,9 +38,7 @@ export default class BathRoomInfo extends Component {
       bathroom: {},
       timeFrames: [],
       reviews: [],
-      images: [{ image_url: 'https://images-na.ssl-images-amazon.com/images/I/61McsadO1OL.jpg' },
-      { image_url: 'https://images-na.ssl-images-amazon.com/images/I/51qmhXWZBxL.jpg' },
-      { image_url: 'https://images-na.ssl-images-amazon.com/images/I/51vlGuX7%2BFL.jpg' }],
+      images: [],
       newReview: '',
       newRatings: 1
     };
@@ -61,9 +59,10 @@ export default class BathRoomInfo extends Component {
     axios.get(`https://obscure-tor-64284.herokuapp.com/bathrooms/${id}/time_frames`)
     .then(response => this.setState({ timeFrames: response.data}));
 
-    // axios.get(`http://localhost:3000/bathrooms/${id}/images`)
-    // .then(response => this.setState({ images: response.data}));
+    axios.get(`http://localhost:3000/bathrooms/${id}/images`)
+    .then(response => this.setState({ images: response.data}));
   }
+
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
@@ -125,17 +124,16 @@ export default class BathRoomInfo extends Component {
           <Text style={styles.locatinName}>
             {this.state.bathroom.location_name}
           </Text>
-          <StarRating
-            disabled={false}
-            maxStars={5}
-            // emptyStar={'ios-star-outline'}
-            // fullStar={'ios-star'}
-            // halfStar={'ios-star-half'}
-            // iconSet={'Ionicons'}
-            starSize={25}
-            rating={this.state.bathroom.average_ratings}
-            starColor='#4029b9'
-          />
+          <View style={styles.raitingsWrapper}>
+            <StarRating
+              disabled={false}
+              maxStars={5}
+              starSize={25}
+              rating={this.state.bathroom.average_ratings}
+              starColor='#4029b9'
+            />
+            <Text style={styles.availableText}>OPEN NOW</Text>
+          </View>
         </View>
         <Constraint {...this.state.bathroom} />
         <Button
@@ -143,7 +141,7 @@ export default class BathRoomInfo extends Component {
           backgroundColor='#007fff'
           buttonStyle={{ marginTop: 10 }}
           icon={{ name: 'create'}}
-          title='Write a review'
+          title='Write a Review!'
           onPress={() => this.setModalVisible(true)}
          />
           <Card title="Reviews">
@@ -185,8 +183,22 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     position: 'relative',
-    width: 150
+    flex: 1,
+    width: null
   },
+  raitingsWrapper: {
+    width: null,
+    justifyContent: 'flex-start',
+    flexDirection: 'row'
+  },
+  availableText: {
+    position: 'absolute',
+    right: 20,
+    marginTop: 3,
+    fontWeight: 'bold',
+    color: '#00BCD4'
+  }
+  ,
   locatinName: {
     fontSize: 22,
     textAlign: 'left',
