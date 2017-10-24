@@ -12,6 +12,7 @@ import {
 import ToggleSwitch from 'toggle-switch-react-native'
 import { SearchBar } from 'react-native-elements'
 import topBar from '../images/center-logo2x.png'
+import customer from '../icons/customer.svg'
 import {
   FormLabel,
   FormInput,
@@ -145,6 +146,10 @@ export default class BathRoomForm extends Component<{}> {
         </View>
 
         <View style={styles.toggle}>
+          <Image
+            source={customer}
+            style={styles.icon}
+          />
           <ToggleSwitch
              isOn={false}
              onColor='#3d2d75'
@@ -263,7 +268,11 @@ const styles = StyleSheet.create({
   checkBox: {
     padding: 30
   },
+  icon: {
+
+  },
   toggle: {
+    flex: 1,
     height: 60,
     alignItems: 'flex-end',
     justifyContent: 'center',
