@@ -22,6 +22,7 @@ import {
 } from 'react-native-elements'
 import axios from 'axios'
 
+
 export default class BathRoomForm extends Component<{}> {
   constructor() {
     super()
@@ -37,6 +38,7 @@ export default class BathRoomForm extends Component<{}> {
         falseSwitchIsOn: false
     }
   }
+
 
   static navigationOptions = {
     headerStyle: {
@@ -87,13 +89,12 @@ export default class BathRoomForm extends Component<{}> {
     const { navigate } = this.props.navigation;
 
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    axios.post('http://localhost:3000/bathrooms/',  bathroomData)
+    axios.post('https://obscure-tor-64284.herokuapp.com/bathrooms/',  bathroomData)
     .then(response => {
-      console.log(response)
+      var bathroomId = response.data.id
+      console.log(bathroomId)
+      navigate('Info', { id: bathroomId.toString() })
     });
-
-    navigate('Info', {id: 318})
-    // bathroomData.id.toString()
   }
 
   render() {
