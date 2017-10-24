@@ -21,10 +21,10 @@ import topBar from '../images/center-logo2x.png';
 import * as firebase from 'firebase';
 
 const config = {
-    apiKey: "AIzaSyBf0Jc9sL7ZPenW1W5faU9O8MAB2TsgHno",
-    databaseURL: "https://loocatr.firebaseio.com",
-    storageBucket: "loocatr.appspot.com"
-  };
+  apiKey: "AIzaSyBf0Jc9sL7ZPenW1W5faU9O8MAB2TsgHno",
+  databaseURL: "https://loocatr.firebaseio.com",
+  storageBucket: "loocatr.appspot.com"
+};
 firebase.initializeApp(config);
 
 export default class BathRoomInfo extends Component {
