@@ -22,13 +22,9 @@ import {
 } from 'react-native-elements'
 import axios from 'axios'
 
-
-
-
 export default class BathRoomForm extends Component<{}> {
   constructor() {
     super()
-
     this.state = {
         location_name: 'anson',
         latitude: 69,
@@ -54,8 +50,7 @@ export default class BathRoomForm extends Component<{}> {
     headerTintColor: '#fff'
   };
 
-
-
+  // following 2 functions can be more DRY:
   updateLocationName(locationName) {
     this.setState({ location_name: locationName });
   }
@@ -89,10 +84,16 @@ export default class BathRoomForm extends Component<{}> {
   }
 
   addBathroom(bathroomData) {
+    const { navigate } = this.props.navigation;
+
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.post('http://localhost:3000/bathrooms/',  bathroomData)
     .then(response => {
+      console.log(response)
     });
+
+    navigate('Info', {id: 318})
+    // bathroomData.id.toString()
   }
 
   render() {
@@ -130,7 +131,6 @@ export default class BathRoomForm extends Component<{}> {
              onToggle={ (isOn) => this.toggleAccessibilityState('over_21', isOn) }
           />
         </View>
-
         <View style={styles.toggle}>
           <Image
             source={customer}
@@ -146,13 +146,11 @@ export default class BathRoomForm extends Component<{}> {
              onToggle={ (isOn) => this.toggleAccessibilityState('customer_only', isOn) }
           />
         </View>
-
        <View style={styles.divider}>
           <Text style={styles.divideText}>
             AMENITIES
           </Text>
         </View>
-
         <View style={styles.toggle}>
           <ToggleSwitch
              isOn={false}
@@ -164,7 +162,6 @@ export default class BathRoomForm extends Component<{}> {
              onToggle={ (isOn) => this.toggleAccessibilityState('handicapped', isOn) }
           />
         </View>
-
         <View style={styles.toggle}>
           <ToggleSwitch
              isOn={false}
@@ -184,15 +181,13 @@ export default class BathRoomForm extends Component<{}> {
             fontWeight= 'bold'
             raised
             title='Submit Bathroom'
+
+
             onPress={() => this.addBathroom(this.state)}
           />
         </View>
-
-
-
       </ScrollView>
       </View>
-
     );
   }
 }
