@@ -267,11 +267,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingRight: 5,
-    fontFamily: 'verdana',
-    fontSize: 16,
-    lineHeight: 1.38,
     borderBottomWidth: 1,
-    borderColor: 'lightgrey',
+    borderColor: 'lightgrey'
   },
   input: {
     borderBottomWidth: 1,
@@ -279,11 +276,10 @@ const styles = StyleSheet.create({
   },
   buttonDiv: {
     backgroundColor: 'lightgrey',
-    padding: 20,
-    color: '#007fff'
+    padding: 30,
+
   },
   button: {
     backgroundColor: '#007fff',
-
   }
 });
