@@ -22,9 +22,7 @@ import {
 } from 'react-native-elements'
 import axios from 'axios'
 
-let geolocationCoordinates = []
-var geolocationLat
-var geolocationLng
+
 
 
 export default class BathRoomForm extends Component<{}> {
@@ -59,7 +57,6 @@ export default class BathRoomForm extends Component<{}> {
 
 
   updateLocationName(locationName) {
-    console.log(this.state.location_name)
     this.setState({ location_name: locationName  });
   }
 
@@ -100,6 +97,9 @@ export default class BathRoomForm extends Component<{}> {
   }
 
   geolocateAddress(address) {
+    var geolocationLat
+    var geolocationLng
+
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDvzsWpabMDZzoKw5hpo5RODzQhqzE4dhg&address=${address}`)
     .then(response => {
@@ -115,23 +115,9 @@ export default class BathRoomForm extends Component<{}> {
   }
 
   addBathroom(bathroomData) {
-    console.log(this.state)
-
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    axios.post('http://localhost:3000/bathrooms/',  bathroomData
-      // location_name: bathroomData.location_name,
-      // latitude: geolocationCoordinates[0],
-      // longitude: geolocationCoordinates[1],
-      // over_21: bathroomData.over_21,
-      // handicapped: bathroomData.handicapped,
-      // family: bathroomData.family,
-      // customer_only: bathroomData.customer_only
-    )
+    axios.post('http://localhost:3000/bathrooms/',  bathroomData)
     .then(response => {
-      // console.log('printing google API response:')
-      // console.log(geolocationCoordinates)
-      // console.log('printing backend response:')
-      // console.log(response)
     });
   }
 
@@ -234,8 +220,6 @@ export default class BathRoomForm extends Component<{}> {
           />
         </View>
         <View style={styles.buttonDiv}>
-        <Text>{this.state.latitude}</Text>
-        <Text>{this.state.longitude}</Text>
           <Button
             backgroundColor= '#007fff'
             borderRadius= {4}
