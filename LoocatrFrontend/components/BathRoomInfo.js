@@ -16,7 +16,16 @@ import { Card, ListItem, Button } from 'react-native-elements';
 import Review from './Review';
 import ReviewPage from './ReviewPage';
 import Constraint from './Constraint';
-import topBar from '../images/center-logo2x.png'
+import topBar from '../images/center-logo2x.png';
+
+import * as firebase from 'firebase';
+
+const config = {
+    apiKey: "AIzaSyBf0Jc9sL7ZPenW1W5faU9O8MAB2TsgHno",
+    databaseURL: "https://loocatr.firebaseio.com",
+    storageBucket: "loocatr.appspot.com"
+  };
+firebase.initializeApp(config);
 
 export default class BathRoomInfo extends Component {
   static navigationOptions = {
@@ -30,7 +39,7 @@ export default class BathRoomInfo extends Component {
     },
     headerTintColor: '#fff'
   };
-  
+
   constructor() {
     super();
     this.state = {
