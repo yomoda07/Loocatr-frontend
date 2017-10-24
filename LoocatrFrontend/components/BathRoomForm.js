@@ -85,15 +85,22 @@ export default class BathRoomForm extends Component<{}> {
     }
   }
 
-  submitReview() {
-    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    axios.post('https://localhost:3000/bathrooms/',  {
-      locationName: '',
-      address: ''
-    })
-    .then(response => {
-      this.setState({ reviews: [response.data, ...this.state.reviews] });
-    });
+  submitReview(data) {
+    console.log(data)
+    // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    // axios.post('https://localhost:3000/bathrooms/',  {
+    //   locationName: '',
+    //   latitude: '',
+    //   longitude: '',
+    //   over_21: false,
+    //   handicapped: false,
+    //   family: false,
+    //   customer_only: false
+    // })
+    // .then(response => {
+    //   console.log(response)
+      // this.setState({ reviews: [response.data, ...this.state.reviews] });
+    // });
   }
 
   render() {
@@ -150,7 +157,7 @@ export default class BathRoomForm extends Component<{}> {
           buttonStyle={{ marginTop: 10, marginBottom: 20 }}
           icon={{ name: 'add'}}
           title='Add Bathroom'
-          onPress={() => props.submitReview(props.newRatings, props.newReview)}
+          onPress={() => this.submitReview(this.state)}
          />
 
       </View>
