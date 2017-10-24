@@ -111,12 +111,14 @@ export default class BathRoomForm extends Component<{}> {
 
   render() {
     return (
-      <ScrollView>
+
+
       <View style={styles.container}>
         <Image
           source={topBar}
           style={styles.topBar}
         />
+        <ScrollView>
         <View style={styles.headDiv}>
           <Text style={styles.header}>
             Tell us about this bathroom
@@ -135,7 +137,19 @@ export default class BathRoomForm extends Component<{}> {
              isOn={false}
              onColor='#3d2d75'
              offColor='grey'
-             label='age restriction 21+'
+             label='Age restrictions 21+'
+             labelStyle={{color: '#7a8288', fontWeight: '900'}}
+             size='small'
+             onToggle={ (isOn) => console.log('changed to : ', isOn) }
+          />
+        </View>
+
+        <View style={styles.toggle}>
+          <ToggleSwitch
+             isOn={false}
+             onColor='#3d2d75'
+             offColor='grey'
+             label='Customer only'
              labelStyle={{color: '#7a8288', fontWeight: '900'}}
              size='small'
              onToggle={ (isOn) => console.log('changed to : ', isOn) }
@@ -165,35 +179,39 @@ export default class BathRoomForm extends Component<{}> {
              isOn={false}
              onColor='#3d2d75'
              offColor='grey'
-             label='Handicap accessible'
+             label='changing table'
              labelStyle={{color: '#7a8288', fontWeight: '900'}}
              size='small'
              onToggle={ (isOn) => console.log('changed to : ', isOn) }
           />
         </View>
-        <CheckBox
-          title='Family'
-          checked={this.state.family}
-          onPress={() => this.toggleFamily()}
-        />
 
-        <CheckBox
-          title='Customer-only'
-          checked={this.state.customer_only}
-          onPress={() => this.toggleCustomerOnly()}
-        />
+        <View style={styles.toggle}>
+          <ToggleSwitch
+             isOn={false}
+             onColor='#3d2d75'
+             offColor='grey'
+             label='Family'
+             labelStyle={{color: '#7a8288', fontWeight: '900'}}
+             size='small'
+             onToggle={ (isOn) => console.log('changed to : ', isOn) }
+          />
+        </View>
+        <View style={styles.buttonDiv}>
+          <Button
+            backgroundColor= '#007fff'
+            borderRadius= {4}
+            fontFamily= 'verdana'
+            fontWeight= 'bold'
+            raised
+            title='Submit Bathroom'
+            onPress={() => this.submitReview(this.state)}
+          />
+        </View>
 
-        <Button
-          raised
-          backgroundColor='#007fff'
-          buttonStyle={{ marginTop: 10, marginBottom: 20 }}
-          icon={{ name: 'add'}}
-          title='Add Bathroom'
-          onPress={() => this.submitReview(this.state)}
-         />
 
-      </View>
       </ScrollView>
+      </View>
 
     );
   }
@@ -205,7 +223,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: 'white',
-
   },
   headDiv: {
     flexDirection: 'row',
@@ -260,5 +277,14 @@ const styles = StyleSheet.create({
   input: {
     borderBottomWidth: 1,
     borderColor: 'lightgrey'
+  },
+  buttonDiv: {
+    backgroundColor: 'lightgrey',
+    padding: 20,
+    color: '#007fff'
+  },
+  button: {
+    backgroundColor: '#007fff',
+
   }
 });
