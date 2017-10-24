@@ -14,11 +14,13 @@ import {
   ListItem,
   Button
 } from 'react-native';
-import { Header } from 'react-native-elements'
+import { Header, Icon } from 'react-native-elements'
 import MapView from 'react-native-maps'
 import topBar from '../images/center-logo2x.png'
-import axios from 'axios';
-import StarRating from 'react-native-star-rating';
+import axios from 'axios'
+import StarRating from 'react-native-star-rating'
+import geolib from 'geolib'
+
 
 const { width, height } = Dimensions.get('window')
 
@@ -95,6 +97,32 @@ export default class MapPage extends Component<{}> {
     )
   }
 
+  distance(lat, long) {
+    const miles = 1609.34709
+    const meters = geolib.getDistance(
+    {latitude: this.state.region.latitude, longitude: this.state.region.longitude},
+    {latitude: lat, longitude: long}) 
+    const calc = (meters / miles)
+    const dist = Math.round(calc * 10) / 10
+
+    return dist
+  }
+
+  renderIcon(handicapped, family, over21, customer) {
+    if (handicapped == true) {
+      return <Icon name='accessible' />
+    } 
+    else if (family == true) {
+      return <Icon name='baby-buggy' />
+    } 
+    else if (over21 == true) {
+      return <Icon name='attach-money' />
+    }
+    else if (customer == true) {
+      return <Icon name='mid-wine' />
+    }
+  }
+
   render() {
     return (
 
@@ -110,12 +138,12 @@ export default class MapPage extends Component<{}> {
           showsUserLocation={true}
           followUserLocation={true}
           initialRegion={this.state.region}
-
-          >
+        >
           {this.state.nearestBathrooms.map((bathroomData, index) => {
             return (
               <MapView.Marker
                 pinColor={'blue'}
+                // image={require('../images/')}
                 key={index}
                 title={bathroomData.location_name}
                 coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
@@ -136,29 +164,39 @@ export default class MapPage extends Component<{}> {
                 ]}
                 renderItem={({item}) => (
                   <View style={styles.list}>
-                    <Text
-                    onPress={() =>
-                      navigate('Info', {id: bathroomData.id.toString()})
-                    }
-                    style={styles.item}
-                    >
-                      {item.name}
-                    </Text>
                     <View style={styles.listDetails}>
-                      <StarRating
-                        disabled={true}
-                        maxStars={5}
-                        rating={item.rating}
-                        starSize={40}
-                        starColor={'#4029b9'}
-                      />
+                      <Text 
+                      onPress={() =>
+                        navigate('Info', {id: bathroomData.id.toString()})
+                      }
+                      style={styles.item}
+                      >
+                        {item.name}
+                      </Text>
+                      <Text style={styles.distance}>
+                        {this.distance(bathroomData.latitude, bathroomData.longitude)} mi
+                      </Text>
+                    </View>
+                    <View style={styles.icon}>
+                       {this.renderIcon(bathroomData.handicapped, bathroomData.family, bathroomData.over_21, bathroomData.customer_only)}
+                    </View>
+                    <View style={styles.listDetails}>
+                      <View style={{padding: 3}}>
+                        <StarRating
+                          disabled={true}
+                          maxStars={5}
+                          rating={item.rating}
+                          starSize={30}
+                          starColor={'#4029b9'}
+                        />
+                      </View>
                       <View style={styles.button}>
-                      <Button
-                        color="white"
-                        title="Loocate"
-                        coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
-                        onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
-                      />
+                        <Button
+                          color="white"
+                          title="Loocate"
+                          coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
+                          onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
+                        />
                       </View>
                     </View>
                   </View>
@@ -203,9 +241,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
+  icon: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '50%',
+  },
   item: {
-    padding: 10,
-    fontSize: 25,
+    padding: 5,
+    fontSize: 21,
     height: 44
+  },
+  distance: {
+    color: 'grey',
+    padding: 5
   }
 });

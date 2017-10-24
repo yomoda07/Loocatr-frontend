@@ -95,8 +95,7 @@ export default class BathRoomInfo extends Component {
   registerImage(url) {
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${this.state.bathroom.id}/images`,  {
-      image_url: url,
-      user_id: 1 //Replace with actual user_id
+      image_url: url
     })
     .then(response => {
       console.log(response.data);
