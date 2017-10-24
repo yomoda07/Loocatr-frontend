@@ -97,13 +97,6 @@ export default class MapPage extends Component<{}> {
     )
   }
 
-  marker() {
-    return {
-      latitude: this.state.region.latitude,
-      longitude: this.state.region.longitude
-    }
-  }
-
   render() {
     return (
 
@@ -120,12 +113,6 @@ export default class MapPage extends Component<{}> {
           followUserLocation={true}
           initialRegion={this.state.region}
           >
-          <MapView.Marker
-            coordinate={this.marker()}
-            title = "Im here!"
-            description = "Home"
-            onPress={() => this.openLocation(37.76871, -122.41482)}
-          />
 
           {this.state.nearestBathrooms.map((bathroomData, index) => {
             return (
