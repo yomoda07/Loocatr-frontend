@@ -92,29 +92,46 @@ export default class BathRoomForm extends Component<{}> {
   }
 
   geolocateAddress(address) {
-    console.log('making post to google')
+    // console.log('making request to google')
+    var self = this
 
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDvzsWpabMDZzoKw5hpo5RODzQhqzE4dhg&address=${address}`)
     .then(response => {
-      geolocationLat = response.data.results[0].geometry.location.lat
-      geolocationLng = response.data.results[0].geometry.location.lng
-      return geolocationCoordinates = [geolocationLat, geolocationLng]
+      return geolocationLat = response.data.results[0].geometry.location.lat
+      return geolocationLng = response.data.results[0].geometry.location.lng
+
+      // console.log('printing state after setting it:')
+      // console.log(this.state)
+      // return geolocationCoordinates = [geolocationLat, geolocationLng]
     });
+    self.setState({
+      latitude: geolocationLat,
+      longitude: geolocationLng
+    })
   }
 
   addBathroom(bathroomData) {
     // console.log('printing bathroomData:')
     // console.log(bathroomData)
-    var addressCoordinates = this.geolocateAddress('dev bootcamp sf')
+    this.geolocateAddress('dev bootcamp sf')
 
-
+    console.log('printing state after calling geolocateAddress:')
+    console.log(this.state)
 
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    axios.post('http://localhost:3000/bathrooms/',  bathroomData)
+    axios.post('http://localhost:3000/bathrooms/',  bathroomData
+      // location_name: bathroomData.location_name,
+      // latitude: geolocationCoordinates[0],
+      // longitude: geolocationCoordinates[1],
+      // over_21: bathroomData.over_21,
+      // handicapped: bathroomData.handicapped,
+      // family: bathroomData.family,
+      // customer_only: bathroomData.customer_only
+    )
     .then(response => {
-      console.log('printing google API response:')
-      console.log(geolocationCoordinates)
+      // console.log('printing google API response:')
+      // console.log(geolocationCoordinates)
       // console.log('printing backend response:')
       // console.log(response)
     });
