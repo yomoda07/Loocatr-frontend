@@ -17,8 +17,10 @@ import {
 import { Header } from 'react-native-elements'
 import MapView from 'react-native-maps'
 import topBar from '../images/center-logo2x.png'
-import axios from 'axios';
-import StarRating from 'react-native-star-rating';
+import axios from 'axios'
+import StarRating from 'react-native-star-rating'
+import geolib from 'geolib'
+
 
 const { width, height } = Dimensions.get('window')
 
@@ -98,6 +100,17 @@ export default class MapPage extends Component<{}> {
     )
   }
 
+  distance(lat, long) {
+    const miles = 1609.34709
+    const meters = geolib.getDistance(
+    {latitude: this.state.region.latitude, longitude: this.state.region.longitude},
+    {latitude: lat, longitude: long}) 
+    const calc = (meters / miles)
+    const dist = Math.round(calc * 10) / 10
+
+    return dist
+  }
+
   render() {
     return (
 
@@ -139,14 +152,19 @@ export default class MapPage extends Component<{}> {
                 ]}
                 renderItem={({item}) => (
                   <View style={styles.list}>
-                    <Text
-                    onPress={() =>
-                      navigate('Info', {id: bathroomData.id.toString()})
-                    }
-                    style={styles.item}
-                    >
-                      {item.name}
-                    </Text>
+                    <View style={styles.listDetails}>
+                      <Text 
+                      onPress={() =>
+                        navigate('Info', {id: bathroomData.id.toString()})
+                      }
+                      style={styles.item}
+                      >
+                        {item.name}
+                      </Text>
+                      <Text style={{color: 'grey'}}>
+                        {this.distance(bathroomData.latitude, bathroomData.longitude)} mi
+                      </Text>
+                    </View>
                     <View style={styles.listDetails}>
                       <StarRating
                         disabled={true}
@@ -208,7 +226,7 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 10,
-    fontSize: 25,
+    fontSize: 20,
     height: 44
   }
 });
