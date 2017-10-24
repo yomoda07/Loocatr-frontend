@@ -11,7 +11,8 @@ import {
   FlatList,
   ScrollView,
   List,
-  ListItem
+  ListItem,
+  Button
 } from 'react-native';
 import { Header } from 'react-native-elements'
 import MapView from 'react-native-maps'
@@ -29,7 +30,7 @@ export default class MapPage extends Component<{}> {
       left: 0
     },
     headerBackTitleStyle: {
-        opacity: 0,
+      opacity: 0,
     },
     headerTintColor: '#fff'
   };
@@ -107,27 +108,29 @@ export default class MapPage extends Component<{}> {
       />
 
         {this.state.region.latitude ?
-          <MapView
+        <MapView
           style={styles.map}
           showsUserLocation={true}
           followUserLocation={true}
           initialRegion={this.state.region}
-          >
 
+          >
           {this.state.nearestBathrooms.map((bathroomData, index) => {
             return (
               <MapView.Marker
+                pinColor={'blue'}
                 key={index}
                 title={bathroomData.location_name}
                 coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
                 onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
               >
               </MapView.Marker>
-              )
-            })}
+            )
+          })}
         </MapView> : null }
         <ScrollView>
           {this.state.nearestBathrooms.map((bathroomData, index) => {
+            const { navigate } = this.props.navigation;
             return (
               <FlatList style={{flex: 1}}
                 key={index}
@@ -136,15 +139,30 @@ export default class MapPage extends Component<{}> {
                 ]}
                 renderItem={({item}) => (
                   <View style={styles.list}>
-                    <Text style={styles.item}>{item.name}</Text>
-                    <View style={{width: '50%'}}>
+                    <Text 
+                    onPress={() =>
+                      navigate('Info', {id: bathroomData.id.toString()})
+                    }
+                    style={styles.item}
+                    >
+                      {item.name}
+                    </Text>
+                    <View style={styles.listDetails}>
                       <StarRating
                         disabled={true}
                         maxStars={5}
                         rating={item.rating}
-                        starSize={30}
-                        starColor={'blue'}
+                        starSize={40}
+                        starColor={'#4029b9'}
                       />
+                      <View style={styles.button}>
+                      <Button
+                        color="white"
+                        title="Loocate"
+                        coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
+                        onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
+                      />
+                      </View>
                     </View>
                   </View>
                 )}
@@ -158,23 +176,35 @@ export default class MapPage extends Component<{}> {
 }
 
 const styles = StyleSheet.create({
-container: {
-  flex: 1,
-  justifyContent: 'flex-start',
-  backgroundColor: '#F5FCFF'
-},
-map: {
-  flex: 1,
-  width: width
-},
-topBar: {
-  height: 67,
-  width: 375
-},
+  button: {
+    backgroundColor: '#007fff', 
+    borderRadius: 10, 
+    borderWidth: 1, 
+    overflow: 'hidden', 
+    borderColor: 'white'
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    backgroundColor: '#F5FCFF'
+  },
+  map: {
+    flex: 1,
+    width: width
+  },
+  topBar: {
+    height: 67,
+    width: 375
+  },
   list: {
     borderWidth: 0.5,
     borderColor: '#d3d3d3',
     padding: 5
+  },
+  listDetails: {
+    flex: 1, 
+    flexDirection: 'row', 
+    justifyContent: 'space-between'
   },
   item: {
     padding: 10,

@@ -51,7 +51,7 @@ export default (props) => (
           backgroundColor='#007fff'
           buttonStyle={{ marginTop: 10 }}
           icon={{ name: 'add'}}
-          title='Submit'
+          title='Post Review'
           onPress={() => props.submitReview(props.newRatings, props.newReview)}
          />
     </Card>
