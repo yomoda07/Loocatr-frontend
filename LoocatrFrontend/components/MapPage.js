@@ -166,20 +166,22 @@ export default class MapPage extends Component<{}> {
                       </Text>
                     </View>
                     <View style={styles.listDetails}>
-                      <StarRating
-                        disabled={true}
-                        maxStars={5}
-                        rating={item.rating}
-                        starSize={40}
-                        starColor={'#4029b9'}
-                      />
+                      <View style={{padding: 3}}>
+                        <StarRating
+                          disabled={true}
+                          maxStars={5}
+                          rating={item.rating}
+                          starSize={30}
+                          starColor={'#4029b9'}
+                        />
+                      </View>
                       <View style={styles.button}>
-                      <Button
-                        color="white"
-                        title="Loocate"
-                        coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
-                        onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
-                      />
+                        <Button
+                          color="white"
+                          title="Loocate"
+                          coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
+                          onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
+                        />
                       </View>
                     </View>
                   </View>
@@ -225,12 +227,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   item: {
-    padding: 10,
-    fontSize: 20,
+    padding: 5,
+    fontSize: 21,
     height: 44
   },
   distance: {
     color: 'grey',
-    padding: 10
+    padding: 5
   }
 });
