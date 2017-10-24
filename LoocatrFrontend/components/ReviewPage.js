@@ -3,61 +3,156 @@ import {
   Platform,
   StyleSheet,
   Modal,
+  ScrollView,
   TouchableHighlight,
   Text,
   TextInput,
-  View
+  View,
+  Image,
+  ActivityIndicator,
+  TouchableOpacity
 } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import {FormLabel, Button, Icon, Card } from 'react-native-elements';
 import StarRating from 'react-native-star-rating';
+import * as firebase from 'firebase';
+import RNFetchBlob from 'react-native-fetch-blob'
+import ImagePicker from 'react-native-image-crop-picker'
 
-export default (props) => (
-  <Modal
-    animationType="slide"
-    transparent={false}
-    visible={props.modalVisible}
-    onRequestClose={() => {alert("Modal has been closed.")}}
-    >
-   <View style={{marginTop: 100}}>
-    <Card>
-      <View style={styles.raitingsWrapper}>
-        <StarRating
-          maxStars={5}
-          // emptyStar={'ios-star-outline'}
-          // fullStar={'ios-star'}
-          // halfStar={'ios-star-half'}protect_from_forgery
-          // iconSet={'Ionicons'}
-          starSize={30}
-          starColor='#4029b9'
-          rating={props.newRatings}
-          selectedStar={(rating) => props.onStarRatingPress(rating)}
-        />
-        <Icon style={styles.closeButton} name='close' onPress={() => {
-          props.setModalVisible(false);
-        }} />
-      </View>
-      <TextField
-         label='Review'
-         fontSize={20}
-         inputContainerPadding={80}
-         value={props.newRatings}
-         multiline={true}
-         onChangeText={ (text) => props.onReviewTextChange(text) }
-       />
+const config = {
+  apiKey: "AIzaSyBf0Jc9sL7ZPenW1W5faU9O8MAB2TsgHno",
+  databaseURL: "https://loocatr.firebaseio.com",
+  storageBucket: "loocatr.appspot.com"
+};
+firebase.initializeApp(config);
+
+export default class ReviewPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+      imageBolb: null,
+      imageName: null
+    };
+    this.uploadImage = this.uploadImage.bind(this);
+  }
+
+  openPicker(){
+    this.setState({ loading: true })
+    const Blob = RNFetchBlob.polyfill.Blob;
+    const fs = RNFetchBlob.fs;
+    window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+    window.Blob = Blob;
+    ImagePicker.openPicker({
+      width: 300,
+      height: 250,
+      cropping: true,
+      mediaType: 'photo'
+    }).then(image => {
+      this.setState({ imageName: image.filename })
+      const imagePath = image.path;
+      let mime = 'image/jpg';
+      const imageBolb = fs.readFile(imagePath, 'base64')
+        .then((data) => {
+          return Blob.build(data, { type: `${mime};BASE64` });
+      })
+      this.setState({ imageBolb });
+      this.setState({ loading: false });
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
+  uploadImage() {
+    const uid = "12345"; // Replace with actual user id
+    let uploadBlob = null;
+    let mime = 'image/jpg';
+    const imageRef = firebase.storage().ref(uid).child(this.state.imageName);
+    this.state.imageBolb
+    .then((blob) => {
+        uploadBlob = blob;
+        return imageRef.put(blob, { contentType: mime });
+      })
+      .then(() => {
+        uploadBlob.close();
+        return imageRef.getDownloadURL();
+      })
+      .then((url) => {
+        this.props.registerImage(url);
+        this.setState({ imageBolb: null });
+        this.setState({ imageName: null });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
+  render() {
+
+    const dps = this.state.loading ? <ActivityIndicator animating={this.state.loading} /> : (<View>
+      <View>
         <Button
-          raised
-          disabled={ !props.newReview }
-          backgroundColor='#007fff'
-          buttonStyle={{ marginTop: 10 }}
-          icon={{ name: 'add'}}
-          title='Post Review'
-          onPress={() => props.submitReview(props.newRatings, props.newReview)}
-         />
-    </Card>
-   </View>
-  </Modal>
-);
+          onPress={ () => this.openPicker() }
+          title={ this.state.imageBolb ? this.state.imageName : "Upload photo" }
+          backgroundColor='#00BCD4'
+        />
+      </View>
+    </View>)
+
+    return (
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={this.props.modalVisible}
+        onRequestClose={() => {alert("Modal has been closed.")}}
+        >
+        <ScrollView>
+         <View style={{marginTop: 100}}>
+          <Card>
+            <View style={styles.raitingsWrapper}>
+              <StarRating
+                maxStars={5}
+                starSize={30}
+                starColor='#4029b9'
+                rating={this.props.newRatings}
+                selectedStar={(rating) => this.props.onStarRatingPress(rating)}
+              />
+              <Icon style={styles.closeButton} name='close' onPress={() => {
+                this.props.setModalVisible(false);
+              }} />
+            </View>
+            <TextField
+               label='Review'
+               fontSize={20}
+               inputContainerPadding={80}
+               value={this.props.newRatings}
+               multiline={true}
+               onChangeText={ (text) => this.props.onReviewTextChange(text) }
+             />
+            <View>
+               { dps }
+            </View>
+            <Button
+              raised
+              disabled={ !this.props.newReview }
+              backgroundColor='#007fff'
+              buttonStyle={{ marginTop: 10 }}
+              icon={{ name: 'add'}}
+              title='Post Review'
+              onPress={() => {
+                this.uploadImage();
+                this.props.submitReview(this.props.newRatings, this.props.newReview);
+              }}
+            />
+          </Card>
+         </View>
+       </ScrollView>
+      </Modal>
+    );
+  }
+}
+
 
 const styles = StyleSheet.create({
   container: {

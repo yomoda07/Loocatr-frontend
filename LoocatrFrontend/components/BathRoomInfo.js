@@ -18,15 +18,6 @@ import ReviewPage from './ReviewPage';
 import Constraint from './Constraint';
 import topBar from '../images/center-logo2x.png';
 
-import * as firebase from 'firebase';
-
-const config = {
-  apiKey: "AIzaSyBf0Jc9sL7ZPenW1W5faU9O8MAB2TsgHno",
-  databaseURL: "https://loocatr.firebaseio.com",
-  storageBucket: "loocatr.appspot.com"
-};
-firebase.initializeApp(config);
-
 export default class BathRoomInfo extends Component {
   static navigationOptions = {
     headerStyle: {
@@ -47,12 +38,15 @@ export default class BathRoomInfo extends Component {
       bathroom: {},
       timeFrames: [],
       reviews: [],
-      images: [],
+      images: [{image_url: 'https://firebasestorage.googleapis.com/v0/b/loocatr.appspot.com/o/12345%2FIMG_1994.jpg?alt=media&token=9d087dcd-8bc1-4692-a9ec-33fca970edb3'},{
+        image_url: 'https://firebasestorage.googleapis.com/v0/b/loocatr.appspot.com/o/12345%2FIMG_1995.jpg?alt=media&token=7c3d8097-0f33-44a1-91c0-ea23953b90e7'
+      }],
       newReview: '',
       newRatings: 1
     };
     this.setModalVisible = this.setModalVisible.bind(this);
     this.submitReview = this.submitReview.bind(this);
+    this.registerImage = this.registerImage.bind(this);
     this.onStarRatingPress = this.onStarRatingPress.bind(this);
     this.onReviewTextChange = this.onReviewTextChange.bind(this);
   }
@@ -90,11 +84,23 @@ export default class BathRoomInfo extends Component {
     axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${this.state.bathroom.id}/reviews`,  {
       ratings: ratings,
       description: description,
-      user_id: 1
+      user_id: 1 //Replace with actual user_id
     })
     .then(response => {
       this.setState({ reviews: [response.data, ...this.state.reviews] });
       this.setModalVisible(false);
+    });
+  }
+
+  registerImage(url) {
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${this.state.bathroom.id}/images`,  {
+      image_url: url,
+      user_id: 1 //Replace with actual user_id
+    })
+    .then(response => {
+      console.log(response.data);
+      this.setState({ images: [response.data, ...this.state.images] });
     });
   }
 
@@ -113,10 +119,11 @@ export default class BathRoomInfo extends Component {
           newReview={this.state.newReview}
           onReviewTextChange={this.onReviewTextChange}
           onStarRatingPress={this.onStarRatingPress}
+          registerImage={this.registerImage}
          />
         <ScrollView>
         <View style={styles.swiperWrapper}>
-          <Swiper showsButtons={true} height={250} >
+          <Swiper showsButtons={true} height={270} >
             {!!this.state.images && this.state.images.map(image => {
               return (
                 <View key={image.image_url} style={styles.slide}>
@@ -170,7 +177,7 @@ const styles = StyleSheet.create({
     width: 375
   },
   swiperWrapper: {
-    height: 200
+    height: 270
   },
   slide: {
     position: 'relative',
