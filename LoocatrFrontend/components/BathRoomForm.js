@@ -23,6 +23,8 @@ import {
 import axios from 'axios'
 
 let geolocationCoordinates = []
+var geolocationLat
+var geolocationLng
 
 
 export default class BathRoomForm extends Component<{}> {
@@ -98,31 +100,21 @@ export default class BathRoomForm extends Component<{}> {
   }
 
   geolocateAddress(address) {
-    // console.log('making request to google')
-    var self = this
-
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDvzsWpabMDZzoKw5hpo5RODzQhqzE4dhg&address=${address}`)
     .then(response => {
-      return geolocationLat = response.data.results[0].geometry.location.lat
-      return geolocationLng = response.data.results[0].geometry.location.lng
+      var geolocationLat = response.data.results[0].geometry.location.lat
+      var geolocationLng = response.data.results[0].geometry.location.lng
 
-      // console.log('printing state after setting it:')
-      // console.log(this.state)
-      // return geolocationCoordinates = [geolocationLat, geolocationLng]
+      this.setState({
+        latitude: geolocationLat,
+        longitude: geolocationLng
+      })
     });
-    self.setState({
-      latitude: geolocationLat,
-      longitude: geolocationLng
-    })
+
   }
 
   addBathroom(bathroomData) {
-    // console.log('printing bathroomData:')
-    // console.log(bathroomData)
-    this.geolocateAddress('dev bootcamp sf')
-
-    console.log('printing state after calling geolocateAddress:')
     console.log(this.state)
 
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -142,6 +134,8 @@ export default class BathRoomForm extends Component<{}> {
       // console.log(response)
     });
   }
+
+
 
 
   render() {
@@ -165,7 +159,10 @@ export default class BathRoomForm extends Component<{}> {
         </View>
         <View style={styles.input}>
           <FormLabel>Address</FormLabel>
-          <FormInput onChangeText={(address) => this.updateAddress(address)}/>
+          <FormInput
+          onChangeText={(address) => this.updateAddress(address)}
+          onBlur={(address) => this.geolocateAddress(address.nativeEvent.text)}
+          />
         </View>
         <View style={styles.toggle}>
           <ToggleSwitch
@@ -237,6 +234,8 @@ export default class BathRoomForm extends Component<{}> {
           />
         </View>
         <View style={styles.buttonDiv}>
+        <Text>{this.state.latitude}</Text>
+        <Text>{this.state.longitude}</Text>
           <Button
             backgroundColor= '#007fff'
             borderRadius= {4}
@@ -244,7 +243,7 @@ export default class BathRoomForm extends Component<{}> {
             fontWeight= 'bold'
             raised
             title='Submit Bathroom'
-            onPress={() => this.submitReview(this.state)}
+            onPress={() => this.addBathroom(this.state)}
           />
         </View>
 
