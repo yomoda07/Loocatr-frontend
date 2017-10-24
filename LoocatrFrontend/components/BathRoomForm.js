@@ -24,11 +24,14 @@ export default class BathRoomForm extends Component<{}> {
 
     this.state = {
         locationName: '',
-        address: '',
-        over_21: false
+        latitude: '',
+        longitude: '',
+        over_21: false,
+        handicapped: false,
+        family: false,
+        customer_only: false
     }
   }
-
 
   static navigationOptions = {
     headerStyle: {
@@ -55,6 +58,30 @@ export default class BathRoomForm extends Component<{}> {
       this.setState({ over_21: true })
     } else {
       this.setState({ over_21: false })
+    }
+  }
+
+  toggleHandicapped() {
+    if (this.state.handicapped === false) {
+      this.setState({ handicapped: true })
+    } else {
+      this.setState({ handicapped: false })
+    }
+  }
+
+  toggleFamily() {
+    if (this.state.family === false) {
+      this.setState({ family: true })
+    } else {
+      this.setState({ family: false })
+    }
+  }
+
+  toggleCustomerOnly() {
+    if (this.state.customer_only === false) {
+      this.setState({ customer_only: true })
+    } else {
+      this.setState({ customer_only: false })
     }
   }
 
@@ -94,47 +121,28 @@ export default class BathRoomForm extends Component<{}> {
         />
 
         <CheckBox
-          title='Customer-only'
-          checkedIcon='dot-circle-o'
-          uncheckedIcon='circle-o'
-          checked={this.state.checked}
-        />
-
-        <CheckBox
-          title='Key/code required'
-          checkedIcon='dot-circle-o'
-          uncheckedIcon='circle-o'
-          checked={this.state.checked}
-        />
-
-        <CheckBox
           title='Handicap accessible'
           checkedIcon='dot-circle-o'
           uncheckedIcon='circle-o'
-          checked={this.state.checked}
-        />
-
-        <CheckBox
-          title='Stalls'
-          checkedIcon='dot-circle-o'
-          uncheckedIcon='circle-o'
-          checked={this.state.checked}
-        />
-
-        <CheckBox
-          title='Changing table'
-          checkedIcon='dot-circle-o'
-          uncheckedIcon='circle-o'
-          checked={this.state.checked}
+          checked={this.state.handicapped}
+          onPress={() => this.toggleHandicapped()}
         />
 
         <CheckBox
           title='Family'
           checkedIcon='dot-circle-o'
           uncheckedIcon='circle-o'
-          checked={this.state.checked}
+          checked={this.state.family}
+          onPress={() => this.toggleFamily()}
         />
 
+        <CheckBox
+          title='Customer-only'
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          checked={this.state.customer_only}
+          onPress={() => this.toggleCustomerOnly()}
+        />
 
         <Button
           raised
