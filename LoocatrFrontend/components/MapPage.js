@@ -139,7 +139,7 @@ export default class MapPage extends Component<{}> {
                 ]}
                 renderItem={({item}) => (
                   <View style={styles.list}>
-                    <Text 
+                    <Text
                     onPress={() =>
                       navigate('Info', {id: bathroomData.id.toString()})
                     }
@@ -177,10 +177,10 @@ export default class MapPage extends Component<{}> {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#007fff', 
-    borderRadius: 10, 
-    borderWidth: 1, 
-    overflow: 'hidden', 
+    backgroundColor: '#007fff',
+    borderRadius: 10,
+    borderWidth: 1,
+    overflow: 'hidden',
     borderColor: 'white'
   },
   container: {
@@ -202,8 +202,8 @@ const styles = StyleSheet.create({
     padding: 5
   },
   listDetails: {
-    flex: 1, 
-    flexDirection: 'row', 
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'space-between'
   },
   item: {
