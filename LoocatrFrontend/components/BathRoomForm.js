@@ -28,8 +28,8 @@ export default class BathRoomForm extends Component<{}> {
     super()
     this.state = {
         location_name: 'anson',
-        latitude: 69,
-        longitude: 69,
+        latitude: 37,
+        longitude: 122,
         over_21: false,
         handicapped: false,
         family: false,
