@@ -148,7 +148,6 @@ export default class MapPage extends Component<{}> {
     //   console.log(address)
     // })
     // .catch(err => console.log(err))
-    var test
     
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     const address = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyDvzsWpabMDZzoKw5hpo5RODzQhqzE4dhg`)
@@ -162,9 +161,9 @@ export default class MapPage extends Component<{}> {
     })
     address.then((response) => {
 
-      var test = response
+      console.log(response)
     })
-    return test
+    return "hello"
   }
 
   render() {
