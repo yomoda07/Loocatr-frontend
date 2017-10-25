@@ -72,7 +72,7 @@ export default class BathRoomInfo extends Component {
       this.setState({ uid: JSON.parse(value).uid });
     }).done(() => {
       if (!this.state.uid) {
-        this.setState({ uid: anonymous })
+        this.setState({ uid: "anonymous" })
       }
     });
   }
