@@ -17,6 +17,7 @@
 		"react-native-image-crop-picker": "^0.18.0",
 		"react-native-maps": "^0.17.1",
 		"react-native-material-textfield": "^0.10.0",
+		"react-native-modal-datetime-picker": "^4.13.0",
 		"react-native-star-rating": "^1.0.8",
 		"react-native-swiper": "^1.5.13",
 		"react-native-vector-icons": "^4.4.2",
