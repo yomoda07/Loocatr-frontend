@@ -11,7 +11,8 @@ import {
   FlatList,
   ScrollView,
   List,
-  ListItem
+  ListItem,
+  AsyncStorage
 } from 'react-native';
 import { Header, Icon, Button } from 'react-native-elements'
 import MapView from 'react-native-maps'
@@ -48,7 +49,8 @@ export default class MapPage extends Component<{}> {
       },
       nearestBathrooms: [
         // example of simple marker object: { latitude: 37, longitude: -122 }
-      ]
+      ],
+      uid: null
     }
   }
 
@@ -94,6 +96,17 @@ export default class MapPage extends Component<{}> {
         this.getBathrooms(lat, long)
       }
     )
+
+    AsyncStorage.getItem('userData')
+    .then((value) => {
+      if (JSON.parse(value)) {
+        this.setState({ uid: JSON.parse(value).uid });
+      }
+    }).done(() => {
+      if (!this.state.uid) {
+        this.setState({ uid: null })
+      }
+    });
   }
 
   distance(lat, long) {
@@ -131,6 +144,25 @@ export default class MapPage extends Component<{}> {
     } 
   }
 
+  renderPrivateBathroom() {
+    if (this.state.uid !== null) {
+      return <MapView>
+              <MapView.Marker 
+                pinColor={'red'}
+                title={'Private Bathroom'}
+                coordinate={{latitude: 37.7845852, longitude: -122.3994032}}
+              >
+              </MapView.Marker>
+              <MapView.Marker 
+                pinColor={'red'}
+                title={'Private Bathroom'}
+                coordinate={{latitude: 37.781315, longitude: -122.388696}}
+              >
+              </MapView.Marker>
+            </MapView>
+    }   
+  }
+
   render() {
     return (
 
@@ -149,15 +181,17 @@ export default class MapPage extends Component<{}> {
         >
           {this.state.nearestBathrooms.map((bathroomData, index) => {
             return (
-              <MapView.Marker
-                pinColor={'blue'}
-                image={require('../images/toilet-icon-04.png')}
-                key={index}
-                title={bathroomData.location_name}
-                coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
-                onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
-              >
-              </MapView.Marker>
+              <MapView>
+                <MapView.Marker
+                  image={require('../images/toilet-icon-04.png')}
+                  key={index}
+                  title={bathroomData.location_name}
+                  coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
+                  onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
+                >
+                </MapView.Marker>
+                {this.renderPrivateBathroom()}
+              </MapView>
             )
           })}
         </MapView> : null }
