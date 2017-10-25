@@ -86,6 +86,7 @@ export default class ReviewPage extends Component {
     const dps = this.state.loading ? <ActivityIndicator animating={this.state.loading} /> : (<View>
       <View>
         <Button
+          raised
           onPress={ () => this.openPicker() }
           title={ this.state.imageBolb ? this.state.imageName : "Upload photo" }
           backgroundColor='#00BCD4'
