@@ -17,6 +17,7 @@ import MapPage from './components/MapPage';
 import BathRoomForm from './components/BathRoomForm';
 import BathRoomInfo from './components/BathRoomInfo';
 import ReviewPage from './components/ReviewPage';
+import UserAuth from './components/UserAuth';
 import * as firebase from 'firebase';
 
 const config = {
@@ -33,7 +34,8 @@ const App = StackNavigator(
     Map: {screen: MapPage},
     Form: {screen: BathRoomForm},
     Info: {screen: BathRoomInfo},
-    Review: {screen: ReviewPage}
+    Review: {screen: ReviewPage},
+    UserAuth: {screen: UserAuth}
   }
 )
 
