@@ -11,10 +11,9 @@ import {
   FlatList,
   ScrollView,
   List,
-  ListItem,
-  Button
+  ListItem
 } from 'react-native';
-import { Header, Icon } from 'react-native-elements'
+import { Header, Icon, Button } from 'react-native-elements'
 import MapView from 'react-native-maps'
 import topBar from '../images/center-logo2x.png'
 import axios from 'axios'
@@ -108,19 +107,28 @@ export default class MapPage extends Component<{}> {
     return dist
   }
 
-  renderIcon(handicapped, family, over21, customer) {
+  renderHandicapped(handicapped) {
     if (handicapped == true) {
-      return <Icon name='accessible' />
+      return <Icon name='accessible' color='#7a8288' size={20}/>
     } 
-    else if (family == true) {
-      return <Icon name='baby-buggy' />
+  }
+
+  renderFamily(family) {
+    if (family == true) {
+      return <Icon name='child-friendly' color='#7a8288' size={20}/>
     } 
-    else if (over21 == true) {
-      return <Icon name='attach-money' />
-    }
-    else if (customer == true) {
-      return <Icon name='mid-wine' />
-    }
+  }
+
+  renderCustomer(customer) {
+    if (customer == true) {
+      return <Icon name='attach-money' color='#7a8288' size={20}/>
+    } 
+  }
+
+  renderOver21(over21) {
+    if (over21 == true) {
+      return <Icon name='local-bar' color='#7a8288' size={20}/>
+    } 
   }
 
   render() {
@@ -143,7 +151,7 @@ export default class MapPage extends Component<{}> {
             return (
               <MapView.Marker
                 pinColor={'blue'}
-                // image={require('../images/')}
+                image={require('../images/toilet-icon-04.png')}
                 key={index}
                 title={bathroomData.location_name}
                 coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
@@ -177,8 +185,13 @@ export default class MapPage extends Component<{}> {
                         {this.distance(bathroomData.latitude, bathroomData.longitude)} mi
                       </Text>
                     </View>
-                    <View style={styles.icon}>
-                       {this.renderIcon(bathroomData.handicapped, bathroomData.family, bathroomData.over_21, bathroomData.customer_only)}
+                    <View style={styles.icon1}>
+                       {this.renderHandicapped(bathroomData.handicapped)}
+                       {this.renderFamily(bathroomData.family)}
+                    </View>
+                    <View style={styles.icon2}>
+                       {this.renderCustomer(bathroomData.customer_only)}
+                       {this.renderOver21(bathroomData.over_21)}
                     </View>
                     <View style={styles.listDetails}>
                       <View style={{padding: 3}}>
@@ -186,14 +199,26 @@ export default class MapPage extends Component<{}> {
                           disabled={true}
                           maxStars={5}
                           rating={item.rating}
-                          starSize={30}
+                          starSize={20}
                           starColor={'#4029b9'}
                         />
                       </View>
                       <View style={styles.button}>
-                        <Button
+                        <Button 
+                          buttonStyle={{
+                            backgroundColor: '#007fff',
+                            borderRadius: 10,
+                            borderWidth: 1,
+                            height: 40,
+                            width: 100,
+                            bottom: 5,
+                            left: 9,
+                            overflow: 'hidden',
+                            borderColor: 'white'
+                          }}
                           color="white"
-                          title="Loocate"
+                          title="loocate"
+                          icon={{name: 'near-me'}}
                           coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
                           onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
                         />
@@ -211,13 +236,6 @@ export default class MapPage extends Component<{}> {
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#007fff',
-    borderRadius: 10,
-    borderWidth: 1,
-    overflow: 'hidden',
-    borderColor: 'white'
-  },
   container: {
     flex: 1,
     justifyContent: 'flex-start',
@@ -241,16 +259,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
-  icon: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '50%',
+  icon1: {
+    position: 'absolute',
+    left: 160,
+    top: 45,
+    flexDirection: 'column'
+  },
+  icon2: {
+    position: 'absolute',
+    left: 180,
+    top: 45,
+    flexDirection: 'column'
   },
   item: {
     padding: 5,
     fontSize: 21,
-    height: 44
+    height: 44,
+    fontFamily: 'verdana'
   },
   distance: {
     color: 'grey',
