@@ -44,7 +44,7 @@ export default class BathRoomInfo extends Component {
       }],
       newReview: '',
       newRatings: 1,
-      uid: ''
+      uid: 'anonymous'
     };
     this.setModalVisible = this.setModalVisible.bind(this);
     this.submitReview = this.submitReview.bind(this);
@@ -72,10 +72,6 @@ export default class BathRoomInfo extends Component {
       if (JSON.parse(value)) {
         this.setState({ uid: JSON.parse(value).uid });
       }
-    }).done(() => {
-      if (!this.state.uid) {
-        this.setState({ uid: "anonymous" })
-      }
     });
   }
 
@@ -97,7 +93,7 @@ export default class BathRoomInfo extends Component {
     axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${this.state.bathroom.id}/reviews`,  {
       ratings: ratings,
       description: description,
-      user_id: 1 //Replace with actual user_id
+      user_id: this.state.uid
     })
     .then(response => {
       this.setState({ reviews: [response.data, ...this.state.reviews] });
@@ -108,7 +104,8 @@ export default class BathRoomInfo extends Component {
   registerImage(url) {
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${this.state.bathroom.id}/images`,  {
-      image_url: url
+      image_url: url,
+      user_id: this.state.uid
     })
     .then(response => {
       console.log(response.data);
