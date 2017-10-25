@@ -188,7 +188,6 @@ export default class MapPage extends Component<{}> {
                   title={bathroomData.location_name}
                   coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
                   // onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
-                  
                 >
                 </MapView.Marker>
                 {this.renderPrivateBathroom()}
