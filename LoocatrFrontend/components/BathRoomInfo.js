@@ -39,9 +39,7 @@ export default class BathRoomInfo extends Component {
       bathroom: {},
       timeFrames: [],
       reviews: [],
-      images: [{image_url: 'https://firebasestorage.googleapis.com/v0/b/loocatr.appspot.com/o/12345%2FIMG_1994.jpg?alt=media&token=9d087dcd-8bc1-4692-a9ec-33fca970edb3'},{
-        image_url: 'https://firebasestorage.googleapis.com/v0/b/loocatr.appspot.com/o/12345%2FIMG_1995.jpg?alt=media&token=7c3d8097-0f33-44a1-91c0-ea23953b90e7'
-      }],
+      images: [],
       newReview: '',
       newRatings: 1,
       uid: 'anonymous'
