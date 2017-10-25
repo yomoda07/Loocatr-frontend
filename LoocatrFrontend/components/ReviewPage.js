@@ -24,7 +24,7 @@ export default class ReviewPage extends Component {
     super(props);
     this.state = {
       loading: false,
-      imageBolb: null,
+      imageBlob: null,
       imageName: null
     };
     this.uploadImage = this.uploadImage.bind(this);
@@ -46,11 +46,11 @@ export default class ReviewPage extends Component {
       this.setState({ imageName: image.filename })
       const imagePath = image.path;
       let mime = 'image/jpg';
-      const imageBolb = fs.readFile(imagePath, 'base64')
+      const imageBlob = fs.readFile(imagePath, 'base64')
         .then((data) => {
           return Blob.build(data, { type: `${mime};BASE64` });
       })
-      this.setState({ imageBolb });
+      this.setState({ imageBlob });
       this.setState({ loading: false });
     })
     .catch((error) => {
@@ -62,7 +62,7 @@ export default class ReviewPage extends Component {
     let uploadBlob = null;
     let mime = 'image/jpg';
     const imageRef = firebase.storage().ref(this.props.uid).child(this.state.imageName);
-    this.state.imageBolb
+    this.state.imageBlob
     .then((blob) => {
         uploadBlob = blob;
         return imageRef.put(blob, { contentType: mime });
@@ -73,7 +73,7 @@ export default class ReviewPage extends Component {
       })
       .then((url) => {
         this.props.registerImage(url);
-        this.setState({ imageBolb: null });
+        this.setState({ imageBlob: null });
         this.setState({ imageName: null });
       })
       .catch((error) => {
@@ -88,7 +88,7 @@ export default class ReviewPage extends Component {
         <Button
           raised
           onPress={ () => this.openPicker() }
-          title={ this.state.imageBolb ? this.state.imageName : "Upload photo" }
+          title={ this.state.imageBlob ? this.state.imageName : "Upload photo" }
           backgroundColor='#00BCD4'
         />
       </View>
@@ -135,7 +135,7 @@ export default class ReviewPage extends Component {
               icon={{ name: 'add'}}
               title='Post Review'
               onPress={() => {
-                if (this.state.imageBolb) {
+                if (this.state.imageBlob) {
                   this.uploadImage();
                 }
                 this.props.submitReview(this.props.newRatings, this.props.newReview);
