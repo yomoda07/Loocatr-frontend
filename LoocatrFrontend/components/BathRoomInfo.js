@@ -8,7 +8,8 @@ import {
   TouchableHighlight,
   Text,
   View,
-  Image
+  Image,
+  AsyncStorage
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import StarRating from 'react-native-star-rating';
@@ -42,7 +43,8 @@ export default class BathRoomInfo extends Component {
         image_url: 'https://firebasestorage.googleapis.com/v0/b/loocatr.appspot.com/o/12345%2FIMG_1995.jpg?alt=media&token=7c3d8097-0f33-44a1-91c0-ea23953b90e7'
       }],
       newReview: '',
-      newRatings: 1
+      newRatings: 1,
+      uid: ''
     };
     this.setModalVisible = this.setModalVisible.bind(this);
     this.submitReview = this.submitReview.bind(this);
@@ -64,6 +66,15 @@ export default class BathRoomInfo extends Component {
 
     axios.get(`http://localhost:3000/bathrooms/${id}/images`)
     .then(response => this.setState({ images: response.data}));
+
+    AsyncStorage.getItem('userData')
+    .then((value) => {
+      this.setState({ uid: JSON.parse(value).uid });
+    }).done(() => {
+      if (!this.state.uid) {
+        this.seState({ uid: anonymous })
+      }
+    });
   }
 
 
@@ -119,6 +130,7 @@ export default class BathRoomInfo extends Component {
           onReviewTextChange={this.onReviewTextChange}
           onStarRatingPress={this.onStarRatingPress}
           registerImage={this.registerImage}
+          uid={this.state.uid}
          />
         <ScrollView>
         <View style={styles.swiperWrapper}>
