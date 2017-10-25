@@ -181,7 +181,7 @@ export default class MapPage extends Component<{}> {
         >
           {this.state.nearestBathrooms.map((bathroomData, index) => {
             return (
-              <MapView>
+              <MapView key={index}>
                 <MapView.Marker
                   image={require('../images/toilet-icon-04.png')}
                   key={index}
@@ -261,6 +261,7 @@ export default class MapPage extends Component<{}> {
                     </View>
                   </View>
                 )}
+                keyExtractor={(item, index) => index}
               />
             )
           })}
