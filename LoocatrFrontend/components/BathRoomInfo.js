@@ -69,7 +69,9 @@ export default class BathRoomInfo extends Component {
 
     AsyncStorage.getItem('userData')
     .then((value) => {
-      this.setState({ uid: JSON.parse(value).uid });
+      if (JSON.parse(value)) {
+        this.setState({ uid: JSON.parse(value).uid });
+      }
     }).done(() => {
       if (!this.state.uid) {
         this.setState({ uid: "anonymous" })
