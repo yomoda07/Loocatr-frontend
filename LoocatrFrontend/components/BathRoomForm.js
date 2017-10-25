@@ -7,12 +7,10 @@ import {
   ScrollView,
   StatusBar,
   Image,
-  Switch
+  TouchableOpacity
 } from 'react-native'
 import ToggleSwitch from 'toggle-switch-react-native'
-import { SearchBar } from 'react-native-elements'
 import topBar from '../images/center-logo2x.png'
-import customer from '../icons/customer.svg'
 import {
   FormLabel,
   FormInput,
@@ -21,6 +19,7 @@ import {
   Button,
   Icon
 } from 'react-native-elements'
+import DateTimePicker from 'react-native-modal-datetime-picker'
 import axios from 'axios'
 
 
@@ -36,7 +35,8 @@ export default class BathRoomForm extends Component<{}> {
         family: false,
         customer_only: false,
         trueSwitchIsOn: true,
-        falseSwitchIsOn: false
+        falseSwitchIsOn: false,
+        isDateTimePickerVisible: false
     }
   }
 
@@ -53,6 +53,15 @@ export default class BathRoomForm extends Component<{}> {
     headerTintColor: '#fff'
   };
 
+
+  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+
+  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+
+  _handleDatePicked = (date) => {
+    console.log('A date has been picked: ', date);
+    this._hideDateTimePicker();
+  };
   // following 2 functions can be more DRY:
   updateLocationName(locationName) {
     this.setState({ location_name: locationName });
@@ -122,7 +131,7 @@ export default class BathRoomForm extends Component<{}> {
           onBlur={(address) => this.geolocateAddress(address.nativeEvent.text)}
           />
         </View>
-        <View style={styles.toggle}>
+        <View style={styles.section}>
           <Icon
             name='local-bar'
             color='#7a8288'
@@ -137,7 +146,7 @@ export default class BathRoomForm extends Component<{}> {
              onToggle={ (isOn) => this.toggleAccessibilityState('over_21', isOn) }
           />
         </View>
-        <View style={styles.toggle}>
+        <View style={styles.section}>
           <Icon
             name='attach-money'
             color='#7a8288'
@@ -157,7 +166,7 @@ export default class BathRoomForm extends Component<{}> {
             AMENITIES
           </Text>
         </View>
-        <View style={styles.toggle}>
+        <View style={styles.section}>
           <Icon
             name='accessible'
             color='#7a8288'
@@ -174,7 +183,7 @@ export default class BathRoomForm extends Component<{}> {
           />
         </View>
 
-        <View style={styles.toggle}>
+        <View style={styles.section}>
           <Icon
             name='child-friendly'
             color='#7a8288'
@@ -190,6 +199,195 @@ export default class BathRoomForm extends Component<{}> {
              onToggle={ (isOn) => this.toggleAccessibilityState('family', isOn) }
           />
         </View>
+
+       <View style={styles.divider}>
+          <Text style={styles.divideText}>
+            Hours
+          </Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={{color: '#7a8288', fontWeight: '900'}}>
+            Monday
+          </Text>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Open</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Close</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={{color: '#7a8288', fontWeight: '900', paddingRight: 20}}>
+            Tuesday
+          </Text>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Open</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Close</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={{color: '#7a8288', fontWeight: '900', paddingRight: 20}}>
+            Wednesday
+          </Text>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Open</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Close</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={{color: '#7a8288', fontWeight: '900', paddingRight: 20}}>
+            Thursday
+          </Text>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Open</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Close</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={{color: '#7a8288', fontWeight: '900', paddingRight: 20}}>
+            Friday
+          </Text>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Open</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Close</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={{color: '#7a8288', fontWeight: '900', paddingRight: 20}}>
+            Saturday
+          </Text>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Open</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Close</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={{color: '#7a8288', fontWeight: '900', paddingRight: 20}}>
+            Sunday
+          </Text>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Open</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+            <TouchableOpacity onPress={this._showDateTimePicker}>
+              <Text style={styles.openClose}>Close</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              mode='time'
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+          </View>
+        </View>
+
         <View style={styles.buttonDiv}>
           <Button
             backgroundColor= '#007fff'
@@ -203,8 +401,9 @@ export default class BathRoomForm extends Component<{}> {
             onPress={() => this.addBathroom(this.state)}
           />
         </View>
-      </ScrollView>
-      </View>
+
+    </ScrollView>
+    </View>
     );
   }
 }
@@ -259,7 +458,7 @@ const styles = StyleSheet.create({
 
   },
 
-  toggle: {
+  section: {
     display: 'flex',
     flexDirection: 'row',
     flex: 1,
@@ -267,11 +466,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingRight: 5,
-    fontFamily: 'verdana',
-    fontSize: 16,
-    lineHeight: 1.38,
     borderBottomWidth: 1,
-    borderColor: 'lightgrey',
+    borderColor: 'lightgrey'
   },
   input: {
     borderBottomWidth: 1,
@@ -279,11 +475,19 @@ const styles = StyleSheet.create({
   },
   buttonDiv: {
     backgroundColor: 'lightgrey',
-    padding: 20,
-    color: '#007fff'
+    padding: 30,
+
   },
   button: {
     backgroundColor: '#007fff',
+  },
+  openClose: {
+    padding: 5,
+    backgroundColor: '#3d2d75',
+    color: 'white',
+    fontWeight: '900',
+    borderWidth: 0.5,
+    margin: 5
 
   }
 });
