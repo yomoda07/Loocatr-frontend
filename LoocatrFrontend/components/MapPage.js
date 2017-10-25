@@ -274,7 +274,8 @@ const styles = StyleSheet.create({
   item: {
     padding: 5,
     fontSize: 21,
-    height: 44
+    height: 44,
+    fontFamily: 'verdana'
   },
   distance: {
     color: 'grey',
