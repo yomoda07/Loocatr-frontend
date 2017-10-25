@@ -43,6 +43,9 @@ export default class HomePage extends Component<{}> {
         <Text style={styles.add} onPress={() => navigate('Form')}>
           Add Bathroom
         </Text>
+        <Text style={styles.add} onPress={() => navigate('UserAuth')}>
+          Signup / Login
+        </Text>
         </View>
 
       </ImageBackground>

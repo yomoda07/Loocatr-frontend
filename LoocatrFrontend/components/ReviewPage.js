@@ -30,6 +30,7 @@ export default class ReviewPage extends Component {
     this.uploadImage = this.uploadImage.bind(this);
   }
 
+
   openPicker(){
     this.setState({ loading: true })
     const Blob = RNFetchBlob.polyfill.Blob;
@@ -58,10 +59,9 @@ export default class ReviewPage extends Component {
   }
 
   uploadImage() {
-    const uid = "12345"; // Replace with actual user id
     let uploadBlob = null;
     let mime = 'image/jpg';
-    const imageRef = firebase.storage().ref(uid).child(this.state.imageName);
+    const imageRef = firebase.storage().ref(this.props.uid).child(this.state.imageName);
     this.state.imageBolb
     .then((blob) => {
         uploadBlob = blob;
