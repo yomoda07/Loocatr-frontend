@@ -7,6 +7,7 @@ import {
   ScrollView,
   StatusBar,
   Image,
+  ActivityIndicator,
   TouchableOpacity
 } from 'react-native'
 import ToggleSwitch from 'toggle-switch-react-native'
@@ -20,6 +21,9 @@ import {
   Icon
 } from 'react-native-elements'
 import DateTimePicker from 'react-native-modal-datetime-picker'
+import RNFetchBlob from 'react-native-fetch-blob'
+import * as firebase from 'firebase';
+import ImagePicker from 'react-native-image-crop-picker'
 import axios from 'axios'
 
 
@@ -27,7 +31,7 @@ export default class BathRoomForm extends Component<{}> {
   constructor() {
     super()
     this.state = {
-        location_name: 'anson',
+        location_name: '',
         latitude: 37,
         longitude: 122,
         over_21: false,
@@ -36,7 +40,10 @@ export default class BathRoomForm extends Component<{}> {
         customer_only: false,
         trueSwitchIsOn: true,
         falseSwitchIsOn: false,
-        isDateTimePickerVisible: false
+        isDateTimePickerVisible: false,
+        loading: false,
+        imageBlob: null,
+        imageName: null
     }
   }
 
@@ -62,6 +69,57 @@ export default class BathRoomForm extends Component<{}> {
     console.log('A date has been picked: ', date);
     this._hideDateTimePicker();
   };
+
+  openPicker(){
+    this.setState({ loading: true })
+    const Blob = RNFetchBlob.polyfill.Blob;
+    const fs = RNFetchBlob.fs;
+    window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+    window.Blob = Blob;
+    ImagePicker.openPicker({
+      width: 300,
+      height: 250,
+      cropping: true,
+      mediaType: 'photo'
+    }).then(image => {
+      this.setState({ imageName: image.filename })
+      const imagePath = image.path;
+      let mime = 'image/jpg';
+      const imageBlob = fs.readFile(imagePath, 'base64')
+        .then((data) => {
+          return Blob.build(data, { type: `${mime};BASE64` });
+      })
+      this.setState({ imageBlob });
+      this.setState({ loading: false });
+    })
+    .catch((error) => {
+      this.setState({ loading: false });
+    })
+  }
+
+  uploadImage() {
+    let uploadBlob = null;
+    let mime = 'image/jpg';
+    const imageRef = firebase.storage().ref(this.props.uid).child(this.state.imageName);
+    this.state.imageBlob
+    .then((blob) => {
+        uploadBlob = blob;
+        return imageRef.put(blob, { contentType: mime });
+      })
+      .then(() => {
+        uploadBlob.close();
+        return imageRef.getDownloadURL();
+      })
+      .then((url) => {
+        this.props.registerImage(url);
+        this.setState({ imageBlob: null });
+        this.setState({ imageName: null });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
   // following 2 functions can be more DRY:
   updateLocationName(locationName) {
     this.setState({ location_name: locationName });
@@ -98,6 +156,10 @@ export default class BathRoomForm extends Component<{}> {
   addBathroom(bathroomData) {
     const { navigate } = this.props.navigation;
 
+    if (this.state.imageBlob) {
+      this.uploadImage();
+    }
+
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.post('https://obscure-tor-64284.herokuapp.com/bathrooms/',  bathroomData)
     .then(response => {
@@ -108,6 +170,18 @@ export default class BathRoomForm extends Component<{}> {
   }
 
   render() {
+
+    const dps = this.state.loading ? <ActivityIndicator animating={this.state.loading} /> : (<View>
+      <View>
+        <Button
+          onPress={ () => this.openPicker() }
+          title={ this.state.imageBlob ? this.state.imageName : "Upload photo" }
+          backgroundColor='#00BCD4'
+        />
+      </View>
+    </View>)
+
+
     return (
       <View style={styles.container}>
         <Image
@@ -386,6 +460,10 @@ export default class BathRoomForm extends Component<{}> {
               onCancel={this._hideDateTimePicker}
             />
           </View>
+        </View>
+
+        <View>
+           { dps }
         </View>
 
         <View style={styles.buttonDiv}>
