@@ -67,6 +67,7 @@
 		EBAC569D1F9E6B940056C35D /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBAC56921F9E6B940056C35D /* Octicons.ttf */; };
 		EBAC569E1F9E6B940056C35D /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBAC56931F9E6B940056C35D /* SimpleLineIcons.ttf */; };
 		EBAC569F1F9E6B940056C35D /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBAC56941F9E6B940056C35D /* Zocial.ttf */; };
+		EBAC56F01FA0535F0056C35D /* libRNGeocoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBAC56ED1FA053180056C35D /* libRNGeocoder.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -343,6 +344,13 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		EBAC56EC1FA053180056C35D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBAC56C41FA053180056C35D /* RNGeocoder.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BF8FCF941BFFB184000FCD37;
+			remoteInfo = RNGeocoder;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -415,6 +423,7 @@
 		EBAC56921F9E6B940056C35D /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		EBAC56931F9E6B940056C35D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		EBAC56941F9E6B940056C35D /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		EBAC56C41FA053180056C35D /* RNGeocoder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGeocoder.xcodeproj; path = "../node_modules/react-native-geocoder/ios/RNGeocoder.xcodeproj"; sourceTree = "<group>"; };
 		ED65FFBD5F674C7EB911F081 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		F95C6AE28AA5447FA97B89B3 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		FA0CCE175E204C03B67E7478 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -433,6 +442,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBAC56F01FA0535F0056C35D /* libRNGeocoder.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -666,6 +676,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				EBAC56C41FA053180056C35D /* RNGeocoder.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -707,6 +718,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				26FBC0FF91F34EB481C59C21 /* Resources */,
 				3E88249D1F9D3B19005AC3C6 /* Recovered References */,
+				EBAC56EF1FA0535F0056C35D /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -758,6 +770,21 @@
 			);
 			name = Fonts;
 			path = "../node_modules/react-native-vector-icons/Fonts";
+			sourceTree = "<group>";
+		};
+		EBAC56C51FA053180056C35D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EBAC56ED1FA053180056C35D /* libRNGeocoder.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EBAC56EF1FA0535F0056C35D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -847,13 +874,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-
 						DevelopmentTeam = ARFDZ3WLU7;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = ARFDZ3WLU7;
-
 						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -940,6 +965,10 @@
 				{
 					ProductGroup = 3A433BD51F9ED843000D2F7F /* Products */;
 					ProjectRef = B7308C3C35E2420DB7BEBA3E /* RNFetchBlob.xcodeproj */;
+				},
+				{
+					ProductGroup = EBAC56C51FA053180056C35D /* Products */;
+					ProjectRef = EBAC56C41FA053180056C35D /* RNGeocoder.xcodeproj */;
 				},
 				{
 					ProductGroup = EBAC56841F9E6B5C0056C35D /* Products */;
@@ -1216,6 +1245,13 @@
 			remoteRef = EBAC56871F9E6B5C0056C35D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		EBAC56ED1FA053180056C35D /* libRNGeocoder.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNGeocoder.a;
+			remoteRef = EBAC56EC1FA053180056C35D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1372,10 +1408,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-
 				DEVELOPMENT_TEAM = ARFDZ3WLU7;
-
-
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1411,10 +1444,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-
 				DEVELOPMENT_TEAM = ARFDZ3WLU7;
-
-
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
@@ -1449,7 +1479,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-        DEVELOPMENT_TEAM = ARFDZ3WLU7;
+				DEVELOPMENT_TEAM = ARFDZ3WLU7;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
@@ -1464,9 +1494,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.LoocatrFrontend;
-
 				PRODUCT_NAME = LoocatrFrontend;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1481,9 +1509,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-
 				DEVELOPMENT_TEAM = ARFDZ3WLU7;
-
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
@@ -1498,10 +1524,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.LoocatrFrontend;
-
-
 				PRODUCT_NAME = LoocatrFrontend;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;

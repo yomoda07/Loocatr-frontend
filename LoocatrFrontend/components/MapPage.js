@@ -19,6 +19,8 @@ import topBar from '../images/center-logo2x.png'
 import axios from 'axios'
 import StarRating from 'react-native-star-rating'
 import geolib from 'geolib'
+import Geocoder from 'react-native-geocoder'
+
 
 
 const { width, height } = Dimensions.get('window')
@@ -131,6 +133,40 @@ export default class MapPage extends Component<{}> {
     } 
   }
 
+  address(lat, long) {
+    // var position = {
+    //   lat: parseFloat(lat),
+    //   lng: parseFloat(long)
+    // };
+    // console.log("**************")
+    // console.log(position)
+    // console.log(lat)
+
+    // Geocoder.geocodePosition(position).then(res => {
+    //     // res is an Array of geocoding object (see below)
+    //   const address = res[0].feature
+    //   console.log(address)
+    // })
+    // .catch(err => console.log(err))
+    var test
+    
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    const address = axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyDvzsWpabMDZzoKw5hpo5RODzQhqzE4dhg`)
+    .then(response => {
+
+      var number = response.data.results[0].address_components[0].long_name
+      var street = response.data.results[0].address_components[1].long_name
+      var address = number + " " + street
+
+      return address 
+    })
+    address.then((response) => {
+
+      var test = response
+    })
+    return test
+  }
+
   render() {
     return (
 
@@ -224,6 +260,9 @@ export default class MapPage extends Component<{}> {
                         />
                       </View>
                     </View>
+                    <Text>
+                      {this.address(bathroomData.latitude, bathroomData.longitude)}
+                    </Text>
                   </View>
                 )}
               />
