@@ -64,7 +64,7 @@ export default class BathRoomInfo extends Component {
     axios.get(`https://obscure-tor-64284.herokuapp.com/bathrooms/${id}/time_frames`)
     .then(response => this.setState({ timeFrames: response.data}));
 
-    axios.get(`http://localhost:3000/bathrooms/${id}/images`)
+    axios.get(`https://obscure-tor-64284.herokuapp.com/bathrooms/${id}/images`)
     .then(response => this.setState({ images: response.data}));
 
     AsyncStorage.getItem('userData')

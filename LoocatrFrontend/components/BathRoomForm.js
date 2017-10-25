@@ -43,7 +43,8 @@ export default class BathRoomForm extends Component<{}> {
         isDateTimePickerVisible: false,
         loading: false,
         imageBlob: null,
-        imageName: null
+        imageName: null,
+        uid: 'anonymous'
     }
   }
 
@@ -97,7 +98,7 @@ export default class BathRoomForm extends Component<{}> {
     })
   }
 
-  uploadImage() {
+  uploadImage(bathroomId) {
     let uploadBlob = null;
     let mime = 'image/jpg';
     const imageRef = firebase.storage().ref(this.props.uid).child(this.state.imageName);
@@ -111,7 +112,12 @@ export default class BathRoomForm extends Component<{}> {
         return imageRef.getDownloadURL();
       })
       .then((url) => {
-        this.props.registerImage(url);
+        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+        axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${bathroomId}/images`,  {
+          image_url: url
+        }).then((response) => {
+          this.props.navigation.navigate('Info', { id: response.data.bathroom_id.toString() })
+        })
         this.setState({ imageBlob: null });
         this.setState({ imageName: null });
       })
@@ -156,16 +162,16 @@ export default class BathRoomForm extends Component<{}> {
   addBathroom(bathroomData) {
     const { navigate } = this.props.navigation;
 
-    if (this.state.imageBlob) {
-      this.uploadImage();
-    }
-
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.post('https://obscure-tor-64284.herokuapp.com/bathrooms/',  bathroomData)
     .then(response => {
       var bathroomId = response.data.id
       console.log(bathroomId)
-      navigate('Info', { id: bathroomId.toString() })
+      if (this.state.imageBlob) {
+        this.uploadImage(bathroomId);
+      } else {
+        navigate('Info', { id: bathroomId.toString() })
+      }
     });
   }
 
