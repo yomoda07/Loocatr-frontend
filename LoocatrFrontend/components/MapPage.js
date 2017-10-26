@@ -83,7 +83,7 @@ export default class MapPage extends Component<{}> {
   }
 
   openLocation(lat, lng, bathroomId) {
-    axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${bathroomId}/user_histories`,  {
+    axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${bathroomId}/use_histories`,  {
       user_id: this.state.uid
     });
     Linking.openURL(`http://maps.apple.com/?daddr=${lat},${lng}&dirflg=w`)

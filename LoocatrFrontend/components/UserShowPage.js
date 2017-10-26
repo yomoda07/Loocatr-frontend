@@ -13,7 +13,7 @@ import {
 import firebase from 'firebase';
 import Swiper from 'react-native-swiper';
 import StarRating from 'react-native-star-rating';
-import { Header, Text, Card, ListItem, Button, Badge } from 'react-native-elements';
+import { Header, Text, Card, ListItem, Button} from 'react-native-elements';
 import TopBar from './TopBar';
 import Review from './Review';
 
@@ -65,56 +65,56 @@ export default class UserShowPage extends Component {
             dividerStyle={{borderColor: '#ddd'}}
           >
             <TopBar />
+            <ScrollView>
             <Text h2 style={styles.h2}>Hello, {this.state.username}</Text>
             <Button
               backgroundColor='#4029b9'
-              buttonStyle={{borderRadius: 0, marginTop: 10, marginLeft: 0, marginRight: 0, marginBottom: -15}}
+              buttonStyle={{borderRadius: 2, marginTop: 10, marginLeft: 0, marginRight: 0, marginBottom: -15}}
               title='POSTED BATHROOMS' />
-            <Card containerStyle={{padding: 0}}>
-              {
-                this.state.postedBathrooms.map((bathroom) => {
-                  return (
-                    <ListItem
-                      key={bathroom.id}
-                      title={bathroom.location_name}
-                      onPress={() => this.navigateToBathroomInfoPage(bathroom.id)}
-                    />
-                  );
-                })
-              }
-            </Card>
+              <Card containerStyle={{padding: 0}}>
+                {
+                  this.state.postedBathrooms.map((bathroom) => {
+                    return (
+                      <ListItem
+                        key={bathroom.id}
+                        title={bathroom.location_name}
+                        onPress={() => this.navigateToBathroomInfoPage(bathroom.id)}
+                      />
+                    );
+                  })
+                }
+              </Card>
             <Button
               backgroundColor='#03A9F4'
-              buttonStyle={{borderRadius: 0, marginTop: 10, marginLeft: 0, marginRight: 0, marginBottom: -15}}
+              buttonStyle={{borderRadius: 2, marginTop: 10, marginLeft: 0, marginRight: 0, marginBottom: -15}}
               title='USE HISTORY' />
-            <Card containerStyle={{padding: 0}}>
-              {
-                this.state.usedBathrooms.map((bathroom) => {
-                  return (
-                    <ListItem
-                      key={bathroom.id}
-                      title={bathroom.location_name}
-                      onPress={() => this.navigateToBathroomInfoPage(bathroom.id)}
-                    />
-                  );
-                })
-              }
-            </Card>
-            <ScrollView>
+              <Card containerStyle={{padding: 0}}>
+                {
+                  this.state.usedBathrooms.map((bathroom) => {
+                    return (
+                      <ListItem
+                        key={bathroom.id}
+                        title={bathroom.location_name}
+                        onPress={() => this.navigateToBathroomInfoPage(bathroom.id)}
+                      />
+                    );
+                  })
+                }
+              </Card>
               <Card title="Reviews You Wrote">
                 {this.state.reviews.map((review) =>
                     <Review key={review.id} {...review} />
                 )}
               </Card>
-            </ScrollView>
             <Button
               raised
               backgroundColor='#FF9800'
-              buttonStyle={{ marginTop: -70, borderRadius: 5 }}
+              buttonStyle={{ marginTop: 15, borderRadius: 2 }}
               icon={{ name: 'search'}}
               title='Find Bathroom'
               onPress={() => this.props.navigation.navigate('Map')}
              />
+           </ScrollView>
           </View>
         );
     }
