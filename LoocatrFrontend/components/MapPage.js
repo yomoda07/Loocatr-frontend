@@ -104,7 +104,7 @@ export default class MapPage extends Component<{}> {
     AsyncStorage.getItem('userData')
       .then((value) => {
         if (JSON.parse(value)) {
-          this.setState({ user_id: JSON.parse(value).user_id });
+          this.setState({ user_id: JSON.parse(value).uid });
         }
       });
   }
