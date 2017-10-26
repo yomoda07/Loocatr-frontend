@@ -50,7 +50,7 @@ export default class MapPage extends Component<{}> {
       nearestBathrooms: [
         // example of simple marker object: { latitude: 37, longitude: -122 }
       ],
-      uid: 'anonymous'
+      user_id: 'anonymous'
     }
   }
 
@@ -85,7 +85,7 @@ export default class MapPage extends Component<{}> {
   openLocation(lat, lng, bathroomId) {
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${bathroomId}/use_histories`,  {
-      user_id: this.state.uid
+      user_id: this.state.user_id
     });
     Linking.openURL(`http://maps.apple.com/?daddr=${lat},${lng}&dirflg=w`)
   }
@@ -102,15 +102,11 @@ export default class MapPage extends Component<{}> {
     )
 
     AsyncStorage.getItem('userData')
-    .then((value) => {
-      if (JSON.parse(value)) {
-        this.setState({ uid: JSON.parse(value).uid });
-      }
-    }).done(() => {
-      if (!this.state.uid) {
-        this.setState({ uid: null })
-      }
-    });
+      .then((value) => {
+        if (JSON.parse(value)) {
+          this.setState({ user_id: JSON.parse(value).user_id });
+        }
+      });
   }
 
   distance(lat, long) {
@@ -149,7 +145,7 @@ export default class MapPage extends Component<{}> {
   }
 
   renderPrivateBathroom() {
-    if (this.state.uid !== null) {
+    if (this.state.user_id !== null) {
       return <MapView>
               <MapView.Marker
                 pinColor={'red'}

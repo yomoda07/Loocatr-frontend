@@ -61,7 +61,7 @@ export default class ReviewPage extends Component {
   uploadImage() {
     let uploadBlob = null;
     let mime = 'image/jpg';
-    const imageRef = firebase.storage().ref(this.props.uid).child(this.state.imageName);
+    const imageRef = firebase.storage().ref(this.props.user_id).child(this.state.imageName);
     this.state.imageBlob
     .then((blob) => {
         uploadBlob = blob;

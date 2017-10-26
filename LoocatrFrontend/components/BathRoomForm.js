@@ -43,7 +43,7 @@ export default class BathRoomForm extends Component<{}> {
         loading: false,
         imageBlob: null,
         imageName: null,
-        uid: 'anonymous'
+        user_id: 'anonymous'
     }
   }
 
@@ -100,7 +100,7 @@ export default class BathRoomForm extends Component<{}> {
   uploadImage(bathroomId) {
     let uploadBlob = null;
     let mime = 'image/jpg';
-    const imageRef = firebase.storage().ref(this.props.uid).child(this.state.imageName);
+    const imageRef = firebase.storage().ref(this.props.user_id).child(this.state.imageName);
     this.state.imageBlob
     .then((blob) => {
         uploadBlob = blob;
@@ -113,7 +113,8 @@ export default class BathRoomForm extends Component<{}> {
       .then((url) => {
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
         axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${bathroomId}/images`,  {
-          image_url: url
+          image_url: url,
+          user_id: this.state.user_id
         }).then((response) => {
           this.props.navigation.navigate('Info', { id: response.data.bathroom_id.toString() })
         })
@@ -160,12 +161,10 @@ export default class BathRoomForm extends Component<{}> {
 
   addBathroom(bathroomData) {
     const { navigate } = this.props.navigation;
-
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.post('https://obscure-tor-64284.herokuapp.com/bathrooms/',  bathroomData)
     .then(response => {
       var bathroomId = response.data.id
-      console.log(bathroomId)
       if (this.state.imageBlob) {
         this.uploadImage(bathroomId);
       } else {
