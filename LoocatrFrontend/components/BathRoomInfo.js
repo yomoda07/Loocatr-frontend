@@ -88,15 +88,38 @@ export default class BathRoomInfo extends Component {
     this.setState({ newReview: text });
   }
 
+  updateAverageRating(bathroomID) {
+    console.log(bathroomID)
+
+    axios.get(`https://obscure-tor-64284.herokuapp.com/bathrooms/${bathroomID}`)
+    // .then(response => this.setState({ bathroom: response.data}));
+    .then(response => {
+      let bathroom = this.state.bathroom
+      bathroom.average_ratings = response.data.average_ratings
+
+      console.log(bathroom.average_ratings);
+      this.setState({bathroom})
+      // console.log(response.data.average_ratings);
+
+    })
+
+    // make call to backend
+    // take average rating from response
+    // update this.state to the new average rating
+  }
+
   submitReview(ratings, description) {
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${this.state.bathroom.id}/reviews`,  {
       ratings: ratings,
       description: description,
-      user_id: this.state.uid
+      user_id: 1
     })
     .then(response => {
+      var bathroomID = this.state.bathroom.id
+      // update the reviews array as well as the stars
       this.setState({ reviews: [response.data, ...this.state.reviews] });
+      this.updateAverageRating(bathroomID)
       this.setModalVisible(false);
     });
   }
@@ -108,7 +131,6 @@ export default class BathRoomInfo extends Component {
       user_id: this.state.uid
     })
     .then(response => {
-      console.log(response.data);
       this.setState({ images: [response.data, ...this.state.images] });
     });
   }
