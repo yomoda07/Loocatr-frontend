@@ -120,7 +120,7 @@ export default class ReviewPage extends Component {
                label='Review'
                fontSize={20}
                inputContainerPadding={80}
-               value={this.props.newRatings}
+               value={this.props.newReview}
                multiline={true}
                onChangeText={ (text) => this.props.onReviewTextChange(text) }
              />
