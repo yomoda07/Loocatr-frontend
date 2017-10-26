@@ -34,67 +34,9 @@ export default class UserShowPage extends Component {
     super(props);
     this.state = {
       username: '',
-      postedBathrooms: [{
-        id: 5,
-        location_name: "Super Duper",
-        latitude: "37.0",
-        longitude: "122.0",
-        over_21: false,
-        handicapped: false,
-        family: false,
-        customer_only: false,
-        average_ratings: 0,
-        created_at: "2017-10-26T05:37:32.808Z",
-        updated_at: "2017-10-26T05:37:32.808Z",
-        is_private: null,
-        user_id: null
-        },
-        {
-        id: 2,
-        location_name: "The Bird",
-        latitude: "37.784585",
-        longitude: "-122.397215",
-        over_21: false,
-        handicapped: false,
-        family: false,
-        customer_only: true,
-        average_ratings: 3,
-        created_at: "2017-10-26T00:05:12.655Z",
-        updated_at: "2017-10-26T00:05:12.655Z",
-        is_private: null,
-        user_id: null
-      }],
-      usedBathrooms: [{
-        id: 1,
-        location_name: "Dev boot camp",
-        latitude: "37.0",
-        longitude: "122.0",
-        over_21: true,
-        handicapped: false,
-        family: false,
-        customer_only: true,
-        average_ratings: 3,
-        created_at: "2017-10-25T22:55:32.753Z",
-        updated_at: "2017-10-25T22:55:32.753Z",
-        is_private: null,
-        user_id: null
-        },
-        {
-        id: 3,
-        location_name: "Anson’s house",
-        latitude: "37.0",
-        longitude: "122.0",
-        over_21: true,
-        handicapped: false,
-        family: false,
-        customer_only: true,
-        average_ratings: 4,
-        created_at: "2017-10-26T00:20:35.787Z",
-        updated_at: "2017-10-26T00:20:35.787Z",
-        is_private: null,
-        user_id: null
-      }],
-      reviews: [{"id":31,"ratings":1,"description":"Nice bathroom you should definitely use it while you still can before they close forever","bathroom_id":1,"user_id":"1","created_at":"2017-10-26T00:57:21.969Z","updated_at":"2017-10-26T00:57:21.969Z"},{"id":19,"ratings":5,"description":"lol polo","bathroom_id":1,"user_id":"1","created_at":"2017-10-25T23:54:34.748Z","updated_at":"2017-10-25T23:54:34.748Z"}]
+      postedBathrooms: [],
+      usedBathrooms: [],
+      reviews: []
     };
   }
 
