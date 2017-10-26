@@ -50,7 +50,7 @@ export default class MapPage extends Component<{}> {
       nearestBathrooms: [
         // example of simple marker object: { latitude: 37, longitude: -122 }
       ],
-      uid: null
+      uid: 'anonymous'
     }
   }
 
@@ -82,7 +82,10 @@ export default class MapPage extends Component<{}> {
     })
   }
 
-  openLocation(lat, lng) {
+  openLocation(lat, lng, bathroomId) {
+    axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${bathroomId}/user_histories`,  {
+      user_id: this.state.uid
+    });
     Linking.openURL(`http://maps.apple.com/?daddr=${lat},${lng}&dirflg=w`)
   }
 
@@ -250,7 +253,7 @@ export default class MapPage extends Component<{}> {
                           title="loocate"
                           icon={{name: 'near-me'}}
                           coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
-                          onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
+                          onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude), bathroomData.id)}
                         />
                       </View>
                     </View>
