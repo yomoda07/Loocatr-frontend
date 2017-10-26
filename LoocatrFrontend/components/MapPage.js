@@ -83,6 +83,7 @@ export default class MapPage extends Component<{}> {
   }
 
   openLocation(lat, lng, bathroomId) {
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${bathroomId}/use_histories`,  {
       user_id: this.state.uid
     });
