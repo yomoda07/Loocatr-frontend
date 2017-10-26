@@ -181,13 +181,12 @@ export default class MapPage extends Component<{}> {
         >
           {this.state.nearestBathrooms.map((bathroomData, index) => {
             return (
-              <MapView>
+              <MapView key={index}>
                 <MapView.Marker
                   image={require('../images/toilet-icon-04.png')}
                   key={index}
                   title={bathroomData.location_name}
                   coordinate={{latitude: parseFloat(bathroomData.latitude), longitude: parseFloat(bathroomData.longitude)}}
-                  onPress={() => this.openLocation(parseFloat(bathroomData.latitude), parseFloat(bathroomData.longitude))}
                 >
                 </MapView.Marker>
                 {this.renderPrivateBathroom()}
@@ -260,6 +259,7 @@ export default class MapPage extends Component<{}> {
                     </View>
                   </View>
                 )}
+                keyExtractor={(item, index) => index}
               />
             )
           })}
