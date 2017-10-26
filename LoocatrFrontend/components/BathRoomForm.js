@@ -181,8 +181,10 @@ export default class BathRoomForm extends Component<{}> {
       <View>
         <Button
           onPress={ () => this.openPicker() }
-          title={ this.state.imageBlob ? this.state.imageName : "Upload photo" }
-          backgroundColor='#00BCD4'
+          title={ this.state.imageBlob ? this.state.imageName : "Choose a photo" }
+          backgroundColor='#3d2d75'
+          borderRadius={4}
+          style={{padding:5, width: 320, paddingLeft:30}}
         />
       </View>
     </View>)
@@ -280,197 +282,17 @@ export default class BathRoomForm extends Component<{}> {
           />
         </View>
 
+
        <View style={styles.divider}>
           <Text style={styles.divideText}>
-            Hours
+            Upload photo
           </Text>
         </View>
-
-        <View style={styles.section}>
-          <Text style={{color: '#7a8288', fontWeight: '900'}}>
-            Monday
-          </Text>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Open</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Close</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-          </View>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={{color: '#7a8288', fontWeight: '900', paddingRight: 20}}>
-            Tuesday
-          </Text>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Open</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Close</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-          </View>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={{color: '#7a8288', fontWeight: '900', paddingRight: 20}}>
-            Wednesday
-          </Text>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Open</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Close</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-          </View>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={{color: '#7a8288', fontWeight: '900', paddingRight: 20}}>
-            Thursday
-          </Text>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Open</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Close</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-          </View>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={{color: '#7a8288', fontWeight: '900', paddingRight: 20}}>
-            Friday
-          </Text>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Open</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Close</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-          </View>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={{color: '#7a8288', fontWeight: '900', paddingRight: 20}}>
-            Saturday
-          </Text>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Open</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Close</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-          </View>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={{color: '#7a8288', fontWeight: '900', paddingRight: 20}}>
-            Sunday
-          </Text>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Open</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-            <TouchableOpacity onPress={this._showDateTimePicker}>
-              <Text style={styles.openClose}>Close</Text>
-            </TouchableOpacity>
-            <DateTimePicker
-              mode='time'
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
-            />
-          </View>
-        </View>
-
-        <View>
+       <View>
            { dps }
-        </View>
+       </View>
+
+
 
         <View style={styles.buttonDiv}>
           <Button
@@ -541,7 +363,6 @@ const styles = StyleSheet.create({
   icon: {
 
   },
-
   section: {
     display: 'flex',
     flexDirection: 'row',
@@ -560,18 +381,6 @@ const styles = StyleSheet.create({
   buttonDiv: {
     backgroundColor: 'lightgrey',
     padding: 30,
-
-  },
-  button: {
-    backgroundColor: '#007fff',
-  },
-  openClose: {
-    padding: 5,
-    backgroundColor: '#3d2d75',
-    color: 'white',
-    fontWeight: '900',
-    borderWidth: 0.5,
-    margin: 5
 
   }
 });

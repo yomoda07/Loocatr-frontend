@@ -38,16 +38,19 @@ export default class LoginForm extends Component {
       return <ActivityIndicator animating={this.state.loading} />;
     } else {
       return (
-        <Button
-          backgroundColor= '#007fff'
-          borderRadius= {4}
-          fontFamily= 'verdana'
-          fontWeight= 'bold'
-          raised
-          onPress={this.onLoginPress.bind(this)}
-          title='Login'
-          disabled={!(!!this.state.email && !!this.state.password)}
-        />
+        <View style={styles.buttonDiv}>
+          <Button
+            backgroundColor= '#007fff'
+            borderRadius= {4}
+            fontFamily= 'verdana'
+            fontWeight= 'bold'
+            raised
+            onPress={this.onLoginPress.bind(this)}
+            title='Login'
+            disabled={!(!!this.state.email && !!this.state.password)}
+            disabledStyle={{backgroundColor:'#3d2d75'}}
+          />
+        </View>
       )
     }
   }
@@ -66,7 +69,7 @@ export default class LoginForm extends Component {
             {this.state.error}
           </FormValidationMessage>
           <View style={styles.input}>
-            <FormLabel>Email</FormLabel>
+            <FormLabel style={styles.label}>Email</FormLabel>
             <FormInput
               value={this.state.email}
               onChangeText={(text) => this.handleInput(text, 'email')}
@@ -74,7 +77,7 @@ export default class LoginForm extends Component {
              />
           </View>
           <View style={styles.input}>
-            <FormLabel>Password</FormLabel>
+            <FormLabel style={styles.label}>Password</FormLabel>
             <FormInput
               value={this.state.password}
               onChangeText={(text) => this.handleInput(text, 'password')}
@@ -96,72 +99,22 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'center',
-    paddingBottom: 80
-  },
-  headDiv: {
-    flexDirection: 'row',
-    flex: 1,
-    backgroundColor: 'lightgrey',
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderBottomWidth: 1,
-    borderColor: 'lightgrey'
-  },
-  header: {
-    fontWeight: 'bold',
-    fontSize: 22,
-    fontFamily: 'verdana'
-  },
-  divider: {
-    flexDirection: 'row',
-    flex: 1,
-    backgroundColor: 'lightgrey',
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingLeft: 20,
-    borderBottomWidth: 1,
-    borderColor: 'lightgrey'
-  },
-  divideText: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    fontFamily: 'verdana',
-    color: '#7a8288'
+    paddingBottom: 150
   },
   topBar: {
     height: 67,
     width: 375,
   },
-  checkBox: {
-    padding: 30
-  },
-  icon: {
 
-  },
-  toggle: {
-    flex: 1,
-    height: 60,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    paddingRight: 5,
-    fontFamily: 'verdana',
-    fontSize: 16,
-    lineHeight: 1.38,
+  input: {
     borderBottomWidth: 1,
     borderColor: 'lightgrey',
   },
-  input: {
-    borderBottomWidth: 1,
-    borderColor: 'lightgrey'
+  label: {
+    paddingLeft: 10
   },
   buttonDiv: {
     backgroundColor: 'lightgrey',
     padding: 20,
-    color: '#007fff'
   },
-  button: {
-    backgroundColor: '#007fff',
-  }
 });

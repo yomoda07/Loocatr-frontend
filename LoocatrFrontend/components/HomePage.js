@@ -43,7 +43,7 @@ export default class HomePage extends Component<{}> {
         <Text style={styles.add} onPress={() => navigate('Form')}>
           Add Bathroom
         </Text>
-        <Text style={styles.add} onPress={() => navigate('UserAuth')}>
+        <Text style={styles.userauth} onPress={() => navigate('UserAuth')}>
           Signup / Login
         </Text>
         </View>
@@ -105,6 +105,12 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowColor: 'rgba(0, 0, 0, 0.14)',
     elevation: 1
+  },
+  userauth: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: 'white',
+    paddingTop: 10
   }
 
 });
