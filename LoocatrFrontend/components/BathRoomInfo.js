@@ -42,7 +42,7 @@ export default class BathRoomInfo extends Component {
       images: [],
       newReview: '',
       newRatings: 1,
-      uid: 'anonymous'
+      user_id: 'anonymous'
     };
     this.setModalVisible = this.setModalVisible.bind(this);
     this.submitReview = this.submitReview.bind(this);
@@ -68,7 +68,7 @@ export default class BathRoomInfo extends Component {
     AsyncStorage.getItem('userData')
     .then((value) => {
       if (JSON.parse(value)) {
-        this.setState({ uid: JSON.parse(value).uid });
+        this.setState({ user_id: JSON.parse(value).user_id });
       }
     });
   }
@@ -108,7 +108,7 @@ export default class BathRoomInfo extends Component {
     axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${this.state.bathroom.id}/reviews`,  {
       ratings: ratings,
       description: description,
-      user_id: 1
+      user_id: this.state.user_id
     })
     .then(response => {
       var bathroomID = this.state.bathroom.id
@@ -123,7 +123,7 @@ export default class BathRoomInfo extends Component {
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.post(`https://obscure-tor-64284.herokuapp.com/bathrooms/${this.state.bathroom.id}/images`,  {
       image_url: url,
-      user_id: this.state.uid
+      user_id: this.state.user_id
     })
     .then(response => {
       this.setState({ images: [response.data, ...this.state.images] });
@@ -143,7 +143,7 @@ export default class BathRoomInfo extends Component {
           onReviewTextChange={this.onReviewTextChange}
           onStarRatingPress={this.onStarRatingPress}
           registerImage={this.registerImage}
-          uid={this.state.uid}
+          user_id={this.state.user_id}
          />
         <ScrollView>
         <View style={styles.swiperWrapper}>
