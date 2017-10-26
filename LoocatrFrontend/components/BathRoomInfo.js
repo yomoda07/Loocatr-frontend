@@ -89,7 +89,6 @@ export default class BathRoomInfo extends Component {
   }
 
   updateAverageRating(bathroomID) {
-    console.log(bathroomID)
 
     axios.get(`https://obscure-tor-64284.herokuapp.com/bathrooms/${bathroomID}`)
     // .then(response => this.setState({ bathroom: response.data}));
@@ -97,9 +96,7 @@ export default class BathRoomInfo extends Component {
       let bathroom = this.state.bathroom
       bathroom.average_ratings = response.data.average_ratings
 
-      console.log(bathroom.average_ratings);
       this.setState({bathroom})
-      // console.log(response.data.average_ratings);
 
     })
 
