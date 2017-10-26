@@ -89,7 +89,7 @@ export default class ReviewPage extends Component {
           raised
           onPress={ () => this.openPicker() }
           title={ this.state.imageBlob ? this.state.imageName : "Upload photo" }
-          backgroundColor='#00BCD4'
+          backgroundColor='#3d2d75'
         />
       </View>
     </View>)

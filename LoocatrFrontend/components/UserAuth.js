@@ -45,7 +45,7 @@ export default class UserAuth extends Component {
             selected={this.state.selectedTab === 'signup'}
             title="Signup"
             renderIcon={() => <Icon name='account-circle' color='#7a8288' />}
-            renderSelectedIcon={() => <Icon name='account-circle' color='#00BCD4' />}
+            renderSelectedIcon={() => <Icon name='account-circle' color='#7a8288' />}
             onPress={() => this.setState({ selectedTab: 'signup' })}>
             <SignUpForm navigate={this.props.navigation.navigate} />
           </TabNavigator.Item>
@@ -55,7 +55,7 @@ export default class UserAuth extends Component {
             selected={this.state.selectedTab === 'login'}
             title="Login"
             renderIcon={() => <Icon name='perm-identity' color='#7a8288' />}
-            renderSelectedIcon={() => <Icon name='perm-identity' color='#00BCD4' />}
+            renderSelectedIcon={() => <Icon name='perm-identity' color='#7a8288' />}
             onPress={() => this.setState({ selectedTab: 'login' })}>
             <LoginForm navigate={this.props.navigation.navigate} />
           </TabNavigator.Item>
@@ -67,7 +67,8 @@ export default class UserAuth extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'white'
   },
   topBar: {
     height: 67,
@@ -82,6 +83,7 @@ const styles = StyleSheet.create({
     height: 60
   },
   tabTitle: {
-    fontSize: 16
+    fontSize: 16,
+    color:'#3d2d75'
   }
 })
