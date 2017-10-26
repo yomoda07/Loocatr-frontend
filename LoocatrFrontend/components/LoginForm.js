@@ -20,13 +20,12 @@ export default class LoginForm extends Component {
   }
 
   onLoginPress() {
-    console.log("Login button is pressed!");
     this.setState({ loading: true, error: '' });
     const { email, password } = this.state;
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then((response) => {
         AsyncStorage.setItem("userData", JSON.stringify(response));
-        this.props.navigate('Map');
+        this.props.navigate('UserShowPage');
     })
     .catch((error) => {
       this.setState({ error: error.message, loading: false })

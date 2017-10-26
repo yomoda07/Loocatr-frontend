@@ -18,6 +18,7 @@ import BathRoomForm from './components/BathRoomForm';
 import BathRoomInfo from './components/BathRoomInfo';
 import ReviewPage from './components/ReviewPage';
 import UserAuth from './components/UserAuth';
+import UserShowPage from './components/UserShowPage';
 import * as firebase from 'firebase';
 
 const config = {
@@ -35,7 +36,8 @@ const App = StackNavigator(
     Form: {screen: BathRoomForm},
     Info: {screen: BathRoomInfo},
     Review: {screen: ReviewPage},
-    UserAuth: {screen: UserAuth}
+    UserAuth: {screen: UserAuth},
+    UserShowPage: {screen: UserShowPage}
   }
 )
 

@@ -25,17 +25,12 @@ export default class SignUpForm extends Component {
     this.setState({ loading: true, error: '' });
     const { email, password } = this.state
     firebase.auth().createUserWithEmailAndPassword(email, password)
-   .then((response) => {
-     AsyncStorage.setItem("userData", JSON.stringify(response));
-    //  axios.post(`https://obscure-tor-64284.herokuapp.com/users/${this.state.bathroom.id}`,  {
-    //    username: this.state.username,
-    //    uid: response.uid
-    //  })
-    //  .then(response => {
-    //    console.log(response.data);
-    //    this.setState({ images: [response.data, ...this.state.images] });
-    //  });
-     this.props.navigate('Map');
+   .then(response => {
+     response.updateProfile({
+        displayName: this.state.username
+      }).then(() => {
+        this.props.navigate('UserShowPage');
+      })
     })
    .catch((error) => {
        this.setState({ error: error.message, loading: false });
