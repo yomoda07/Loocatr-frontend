@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
-import SignUpForm from './SignUpForm';
-import LoginForm from './LoginForm';
-import topBar from '../images/center-logo2x.png';
 import TabNavigator from 'react-native-tab-navigator';
 import { Icon } from 'react-native-elements';
+import TopBar from './TopBar';
+import SignUpForm from './SignUpForm';
+import LoginForm from './LoginForm';
+
 
 export default class UserAuth extends Component {
   constructor() {
@@ -34,10 +35,7 @@ export default class UserAuth extends Component {
     const { selectedTab } = this.state;
     return (
       <View style={styles.container}>
-        <Image
-          source={topBar}
-          style={styles.topBar}
-        />
+        <TopBar />
         <TabNavigator tabBarStyle={styles.tabNavigator}>
           <TabNavigator.Item
             tabStyle={styles.tab}

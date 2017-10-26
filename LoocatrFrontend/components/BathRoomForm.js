@@ -11,7 +11,6 @@ import {
   TouchableOpacity
 } from 'react-native'
 import ToggleSwitch from 'toggle-switch-react-native'
-import topBar from '../images/center-logo2x.png'
 import {
   FormLabel,
   FormInput,
@@ -25,7 +24,7 @@ import RNFetchBlob from 'react-native-fetch-blob'
 import * as firebase from 'firebase';
 import ImagePicker from 'react-native-image-crop-picker'
 import axios from 'axios'
-
+import TopBar from './TopBar';
 
 export default class BathRoomForm extends Component<{}> {
   constructor() {
@@ -190,10 +189,7 @@ export default class BathRoomForm extends Component<{}> {
 
     return (
       <View style={styles.container}>
-        <Image
-          source={topBar}
-          style={styles.topBar}
-        />
+        <TopBar />
         <ScrollView>
         <View style={styles.headDiv}>
           <Text style={styles.header}>
@@ -530,10 +526,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'verdana',
     color: '#7a8288'
-  },
-  topBar: {
-    height: 67,
-    width: 375,
   },
   checkBox: {
     padding: 30

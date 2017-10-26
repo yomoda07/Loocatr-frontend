@@ -17,7 +17,7 @@ import { Card, ListItem, Button } from 'react-native-elements';
 import Review from './Review';
 import ReviewPage from './ReviewPage';
 import Constraint from './Constraint';
-import topBar from '../images/center-logo2x.png';
+import TopBar from './TopBar';
 
 export default class BathRoomInfo extends Component {
   static navigationOptions = {
@@ -116,10 +116,7 @@ export default class BathRoomInfo extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image
-          source={topBar}
-          style={styles.topBar}
-        />
+        <TopBar />
         <ReviewPage
           modalVisible={this.state.modalVisible}
           setModalVisible={this.setModalVisible}

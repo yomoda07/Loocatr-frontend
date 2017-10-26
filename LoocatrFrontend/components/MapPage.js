@@ -16,10 +16,10 @@ import {
 } from 'react-native';
 import { Header, Icon, Button } from 'react-native-elements'
 import MapView from 'react-native-maps'
-import topBar from '../images/center-logo2x.png'
 import axios from 'axios'
 import StarRating from 'react-native-star-rating'
 import geolib from 'geolib'
+import TopBar from './TopBar';
 
 
 const { width, height } = Dimensions.get('window')
@@ -113,7 +113,7 @@ export default class MapPage extends Component<{}> {
     const miles = 1609.34709
     const meters = geolib.getDistance(
     {latitude: this.state.region.latitude, longitude: this.state.region.longitude},
-    {latitude: lat, longitude: long}) 
+    {latitude: lat, longitude: long})
     const calc = (meters / miles)
     const dist = Math.round(calc * 10) / 10
 
@@ -123,54 +123,50 @@ export default class MapPage extends Component<{}> {
   renderHandicapped(handicapped) {
     if (handicapped == true) {
       return <Icon name='accessible' color='#7a8288' size={20}/>
-    } 
+    }
   }
 
   renderFamily(family) {
     if (family == true) {
       return <Icon name='child-friendly' color='#7a8288' size={20}/>
-    } 
+    }
   }
 
   renderCustomer(customer) {
     if (customer == true) {
       return <Icon name='attach-money' color='#7a8288' size={20}/>
-    } 
+    }
   }
 
   renderOver21(over21) {
     if (over21 == true) {
       return <Icon name='local-bar' color='#7a8288' size={20}/>
-    } 
+    }
   }
 
   renderPrivateBathroom() {
     if (this.state.uid !== null) {
       return <MapView>
-              <MapView.Marker 
+              <MapView.Marker
                 pinColor={'red'}
                 title={'Private Bathroom'}
                 coordinate={{latitude: 37.7845852, longitude: -122.3994032}}
               >
               </MapView.Marker>
-              <MapView.Marker 
+              <MapView.Marker
                 pinColor={'red'}
                 title={'Private Bathroom'}
                 coordinate={{latitude: 37.781315, longitude: -122.388696}}
               >
               </MapView.Marker>
             </MapView>
-    }   
+    }
   }
 
   render() {
     return (
-
       <View style={styles.container}>
-      <Image
-        source={topBar}
-        style={styles.topBar}
-      />
+        <TopBar />
 
         {this.state.region.latitude ?
         <MapView
@@ -207,7 +203,7 @@ export default class MapPage extends Component<{}> {
                 renderItem={({item}) => (
                   <View style={styles.list}>
                     <View style={styles.listDetails}>
-                      <Text 
+                      <Text
                       onPress={() =>
                         navigate('Info', {id: bathroomData.id.toString()})
                       }
@@ -238,7 +234,7 @@ export default class MapPage extends Component<{}> {
                         />
                       </View>
                       <View style={styles.button}>
-                        <Button 
+                        <Button
                           buttonStyle={{
                             backgroundColor: '#007fff',
                             borderRadius: 10,
@@ -278,10 +274,6 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
     width: width
-  },
-  topBar: {
-    height: 67,
-    width: 375
   },
   list: {
     borderWidth: 0.5,
