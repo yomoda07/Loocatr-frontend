@@ -7,6 +7,7 @@ import {
   ScrollView,
   StatusBar,
   Image,
+  AsyncStorage,
   ActivityIndicator,
   TouchableOpacity
 } from 'react-native'
@@ -60,6 +61,14 @@ export default class BathRoomForm extends Component<{}> {
     headerTintColor: '#fff'
   };
 
+  componentWillMount() {
+    AsyncStorage.getItem('userData')
+    .then((value) => {
+      if (JSON.parse(value)) {
+        this.setState({ user_id: JSON.parse(value).uid });
+      }
+    });
+  }
 
   _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
 

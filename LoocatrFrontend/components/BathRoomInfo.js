@@ -17,6 +17,7 @@ import { Card, ListItem, Button } from 'react-native-elements';
 import Review from './Review';
 import ReviewPage from './ReviewPage';
 import Constraint from './Constraint';
+import ActionButton from './ActionButton';
 import TopBar from './TopBar';
 
 export default class BathRoomInfo extends Component {
@@ -68,7 +69,7 @@ export default class BathRoomInfo extends Component {
     AsyncStorage.getItem('userData')
     .then((value) => {
       if (JSON.parse(value)) {
-        this.setState({ user_id: JSON.parse(value).user_id });
+        this.setState({ user_id: JSON.parse(value).uid });
       }
     });
   }
@@ -190,6 +191,7 @@ export default class BathRoomInfo extends Component {
             )}
           </Card>
         </ScrollView>
+        <ActionButton user_id={this.state.user_id} navigate={this.props.navigation.navigate} />
       </View>
     );
   }

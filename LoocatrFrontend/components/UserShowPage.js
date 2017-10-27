@@ -11,9 +11,8 @@ import {
   AsyncStorage
 } from 'react-native';
 import firebase from 'firebase';
-import Swiper from 'react-native-swiper';
-import StarRating from 'react-native-star-rating';
-import { Header, Text, Card, ListItem, Button} from 'react-native-elements';
+import ActionButton from 'react-native-action-button';
+import { Header, Text, Card, ListItem, Button, Icon } from 'react-native-elements';
 import TopBar from './TopBar';
 import Review from './Review';
 
@@ -57,6 +56,11 @@ export default class UserShowPage extends Component {
     this.props.navigation.navigate('Info', {id: bathroomId.toString()})
   }
 
+  logout() {
+    AsyncStorage.clear();
+    this.props.navigation.navigate('Home');
+  }
+
   render() {
     // if (this.state.userData) {
         return (
@@ -73,7 +77,7 @@ export default class UserShowPage extends Component {
               title='POSTED BATHROOMS' />
               <Card containerStyle={{padding: 0}}>
                 {
-                  this.state.postedBathrooms.map((bathroom) => {
+                  this.state.postedBathrooms.reverse().map((bathroom) => {
                     return (
                       <ListItem
                         key={bathroom.id}
@@ -90,7 +94,7 @@ export default class UserShowPage extends Component {
               title='USE HISTORY' />
               <Card containerStyle={{padding: 0}}>
                 {
-                  this.state.usedBathrooms.map((bathroom) => {
+                  this.state.usedBathrooms.reverse().map((bathroom) => {
                     return (
                       <ListItem
                         key={bathroom.id}
@@ -102,18 +106,21 @@ export default class UserShowPage extends Component {
                 }
               </Card>
               <Card title="Reviews You Wrote">
-                {this.state.reviews.map((review) =>
+                {this.state.reviews.reverse().map((review) =>
                     <Review key={review.id} {...review} />
                 )}
               </Card>
-            <Button
-              raised
-              backgroundColor='#FF9800'
-              buttonStyle={{ marginTop: 15, borderRadius: 2 }}
-              icon={{ name: 'search'}}
-              title='Find Bathroom'
-              onPress={() => this.props.navigation.navigate('Map')}
-             />
+             <ActionButton buttonColor="rgba(231,76,60,1)">
+              <ActionButton.Item buttonColor='#9b59b6' title="Find Bathroom" onPress={() => this.props.navigation.navigate('Map')}>
+                <Icon name="search" />
+              </ActionButton.Item>
+              <ActionButton.Item buttonColor='#3498db' title="Post Bathroom" onPress={() => this.props.navigation.navigate('Form')}>
+                <Icon name="add-location" />
+              </ActionButton.Item>
+              <ActionButton.Item buttonColor='#1abc9c' title="Logout" onPress={() => this.logout()}>
+                <Icon name="person" />
+              </ActionButton.Item>
+            </ActionButton>
            </ScrollView>
           </View>
         );
