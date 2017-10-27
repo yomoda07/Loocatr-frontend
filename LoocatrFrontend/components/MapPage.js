@@ -14,11 +14,12 @@ import {
   ListItem,
   AsyncStorage
 } from 'react-native';
-import { Header, Icon, Button } from 'react-native-elements'
-import MapView from 'react-native-maps'
-import axios from 'axios'
-import StarRating from 'react-native-star-rating'
-import geolib from 'geolib'
+import { Header, Icon, Button } from 'react-native-elements';
+import MapView from 'react-native-maps';
+import axios from 'axios';
+import StarRating from 'react-native-star-rating';
+import geolib from 'geolib';
+import ActionButton from './ActionButton';
 import TopBar from './TopBar';
 
 
@@ -260,6 +261,7 @@ export default class MapPage extends Component<{}> {
             )
           })}
         </ScrollView>
+        <ActionButton user_id={this.state.user_id} navigate={this.props.navigation.navigate} />
       </View>
     );
   }

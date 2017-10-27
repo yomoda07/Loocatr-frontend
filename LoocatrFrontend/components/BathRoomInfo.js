@@ -17,6 +17,7 @@ import { Card, ListItem, Button } from 'react-native-elements';
 import Review from './Review';
 import ReviewPage from './ReviewPage';
 import Constraint from './Constraint';
+import ActionButton from './ActionButton';
 import TopBar from './TopBar';
 
 export default class BathRoomInfo extends Component {
@@ -190,6 +191,7 @@ export default class BathRoomInfo extends Component {
             )}
           </Card>
         </ScrollView>
+        <ActionButton user_id={this.state.user_id} navigate={this.props.navigation.navigate} />
       </View>
     );
   }

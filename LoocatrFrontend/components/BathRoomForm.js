@@ -7,6 +7,7 @@ import {
   ScrollView,
   StatusBar,
   Image,
+  AsyncStorage,
   ActivityIndicator,
   TouchableOpacity
 } from 'react-native'
