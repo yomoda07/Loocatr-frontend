@@ -77,7 +77,7 @@ export default class UserShowPage extends Component {
               title='POSTED BATHROOMS' />
               <Card containerStyle={{padding: 0}}>
                 {
-                  this.state.postedBathrooms.map((bathroom) => {
+                  this.state.postedBathrooms.reverse().map((bathroom) => {
                     return (
                       <ListItem
                         key={bathroom.id}
@@ -94,7 +94,7 @@ export default class UserShowPage extends Component {
               title='USE HISTORY' />
               <Card containerStyle={{padding: 0}}>
                 {
-                  this.state.usedBathrooms.map((bathroom) => {
+                  this.state.usedBathrooms.reverse().map((bathroom) => {
                     return (
                       <ListItem
                         key={bathroom.id}
