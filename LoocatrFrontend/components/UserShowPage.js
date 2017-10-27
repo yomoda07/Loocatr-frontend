@@ -106,7 +106,7 @@ export default class UserShowPage extends Component {
                 }
               </Card>
               <Card title="Reviews You Wrote">
-                {this.state.reviews.map((review) =>
+                {this.state.reviews.reverse().map((review) =>
                     <Review key={review.id} {...review} />
                 )}
               </Card>
