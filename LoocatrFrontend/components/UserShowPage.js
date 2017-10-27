@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {
-  Platform,
   StyleSheet,
   ScrollView,
-  Modal,
-  TouchableHighlight,
   View,
-  Image,
   AsyncStorage
 } from 'react-native';
 import firebase from 'firebase';
 import ActionButton from 'react-native-action-button';
-import { Header, Text, Card, Button, Icon } from 'react-native-elements';
+import { Text, Card, Button, Icon } from 'react-native-elements';
 import TopBar from './TopBar';
 import Review from './Review';
 import BathroomList from './BathroomList';

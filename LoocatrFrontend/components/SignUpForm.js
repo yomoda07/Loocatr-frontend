@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, AsyncStorage } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  AsyncStorage } from 'react-native';
 import firebase from 'firebase';
 import {
   FormLabel,

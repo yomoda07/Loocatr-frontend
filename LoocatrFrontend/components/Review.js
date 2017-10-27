@@ -5,7 +5,6 @@ import {
   Text,
   View
 } from 'react-native';
-import iconFont from 'react-native-vector-icons/Fonts/FontAwesome.ttf';
 import StarRating from 'react-native-star-rating';
 
 export default ({ ratings, description, created_at }) => {

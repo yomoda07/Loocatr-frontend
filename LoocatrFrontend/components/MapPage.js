@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
-  StatusBar,
   Dimensions,
   Image,
   Linking,
   FlatList,
   ScrollView,
-  List,
-  ListItem,
   AsyncStorage
 } from 'react-native';
-import { Header, Icon, Button } from 'react-native-elements';
+import { Icon, Button } from 'react-native-elements';
 import MapView from 'react-native-maps';
 import axios from 'axios';
 import StarRating from 'react-native-star-rating';

@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text
+} from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import { Icon } from 'react-native-elements';
 import TopBar from './TopBar';
