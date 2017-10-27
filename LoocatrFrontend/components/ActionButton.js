@@ -6,25 +6,25 @@ export default (props) => {
   const session = () => {
     if (props.user_id !== 'anonymous') {
       return (
-        <ActionButton.Item buttonColor='#1abc9c' title="Profile" onPress={() => props.navigate('UserShowPage')}>
-          <Icon name="person-outline" />
+        <ActionButton.Item buttonColor='#03A9F4' title="Profile" onPress={() => props.navigate('UserShowPage')}>
+          <Icon name="person-outline" color='white' />
         </ActionButton.Item>
       );
     } else {
       return (
-        <ActionButton.Item buttonColor='#1abc9c' title="Signin/Login" onPress={() => props.navigate('UserAuth')}>
-          <Icon name="person-add" />
+        <ActionButton.Item buttonColor='#03A9F4' title="Signin/Login" onPress={() => props.navigate('UserAuth')}>
+          <Icon name="person-add" color='white' />
         </ActionButton.Item>
       )
     }
   }
   return (
-    <ActionButton buttonColor="rgba(231,76,60,1)">
-     <ActionButton.Item buttonColor='#9b59b6' title="Find Bathroom" onPress={() => props.navigate('Map')}>
-       <Icon name="search" />
+    <ActionButton buttonColor="#007fff">
+     <ActionButton.Item buttonColor='#3F51B5' title="Find Bathroom" onPress={() => props.navigate('Map')}>
+       <Icon name="search" color='white' />
      </ActionButton.Item>
-     <ActionButton.Item buttonColor='#3498db' title="Post Bathroom" onPress={() => props.navigate('Form')}>
-       <Icon name="add-location" />
+     <ActionButton.Item buttonColor='#0288D1' title="Post Bathroom" onPress={() => props.navigate('Form')}>
+       <Icon name="add-location" color='white' />
      </ActionButton.Item>
      {session()}
    </ActionButton>
