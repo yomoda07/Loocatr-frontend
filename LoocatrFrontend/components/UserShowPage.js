@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {
-  Platform,
   StyleSheet,
   ScrollView,
-  Modal,
-  TouchableHighlight,
   View,
-  Image,
   AsyncStorage
 } from 'react-native';
 import firebase from 'firebase';
 import ActionButton from 'react-native-action-button';
-import { Header, Text, Card, ListItem, Button, Icon } from 'react-native-elements';
+import { Text, Card, Button, Icon } from 'react-native-elements';
 import TopBar from './TopBar';
 import Review from './Review';
+import BathroomList from './BathroomList';
 
 export default class UserShowPage extends Component {
   static navigationOptions = {
@@ -71,45 +68,21 @@ export default class UserShowPage extends Component {
             <TopBar />
             <ScrollView>
             <Text h2 style={styles.h2}>Hello, {this.state.username}</Text>
-            <Button
-              backgroundColor='#4029b9'
-              buttonStyle={{borderRadius: 2, marginTop: 10, marginLeft: 0, marginRight: 0, marginBottom: -15}}
-              title='POSTED BATHROOMS' />
-              <Card containerStyle={{padding: 0}}>
-                {
-                  this.state.postedBathrooms.reverse().map((bathroom) => {
-                    return (
-                      <ListItem
-                        key={bathroom.id}
-                        title={bathroom.location_name}
-                        onPress={() => this.navigateToBathroomInfoPage(bathroom.id)}
-                      />
-                    );
-                  })
-                }
-              </Card>
-            <Button
-              backgroundColor='#03A9F4'
-              buttonStyle={{borderRadius: 2, marginTop: 10, marginLeft: 0, marginRight: 0, marginBottom: -15}}
-              title='USE HISTORY' />
-              <Card containerStyle={{padding: 0}}>
-                {
-                  this.state.usedBathrooms.reverse().map((bathroom) => {
-                    return (
-                      <ListItem
-                        key={bathroom.id}
-                        title={bathroom.location_name}
-                        onPress={() => this.navigateToBathroomInfoPage(bathroom.id)}
-                      />
-                    );
-                  })
-                }
-              </Card>
-              <Card title="Reviews You Wrote">
-                {this.state.reviews.reverse().map((review) =>
-                    <Review key={review.id} {...review} />
-                )}
-              </Card>
+            <BathroomList
+              title="POSTED BATHROOMS"
+               bathrooms={this.state.postedBathrooms}
+               navigateToBathroomInfoPage={this.navigateToBathroomInfoPage}n
+             />
+            <BathroomList
+              title="USE HISTORY"
+              bathrooms={this.state.usedBathrooms}
+              navigateToBathroomInfoPage={this.navigateToBathroomInfoPage}
+            />
+            <Card title="Reviews You Wrote">
+              {this.state.reviews.reverse().map((review) =>
+                  <Review key={review.id} {...review} />
+              )}
+            </Card>
              <ActionButton buttonColor="rgba(231,76,60,1)">
               <ActionButton.Item buttonColor='#9b59b6' title="Find Bathroom" onPress={() => this.props.navigation.navigate('Map')}>
                 <Icon name="search" />

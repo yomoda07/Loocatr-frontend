@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
   ScrollView,
-  StatusBar,
   Image,
   AsyncStorage,
-  ActivityIndicator,
-  TouchableOpacity
+  ActivityIndicator
 } from 'react-native'
 import ToggleSwitch from 'toggle-switch-react-native'
 import {
   FormLabel,
   FormInput,
   FormValidationMessage,
-  CheckBox,
   Button,
   Icon
 } from 'react-native-elements'

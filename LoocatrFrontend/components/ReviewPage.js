@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Modal,
   ScrollView,
-  TouchableHighlight,
-  Text,
-  TextInput,
   View,
   Image,
   ActivityIndicator,

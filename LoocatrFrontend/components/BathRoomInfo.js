@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {
-  Platform,
   StyleSheet,
   ScrollView,
   Modal,
-  TouchableHighlight,
   Text,
   View,
   Image,
@@ -13,7 +11,7 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import StarRating from 'react-native-star-rating';
-import { Card, ListItem, Button } from 'react-native-elements';
+import { Card, Button } from 'react-native-elements';
 import Review from './Review';
 import ReviewPage from './ReviewPage';
 import Constraint from './Constraint';

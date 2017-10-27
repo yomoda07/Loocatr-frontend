@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, AsyncStorage } from 'react-native';
-import firebase from 'firebase';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  AsyncStorage
+} from 'react-native';
 import {
   FormLabel,
   FormInput,
   FormValidationMessage,
   Button
 } from 'react-native-elements';
+import firebase from 'firebase';
 
 export default class LoginForm extends Component {
   constructor() {
