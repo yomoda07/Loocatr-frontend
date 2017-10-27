@@ -31,6 +31,7 @@ export default class LoginForm extends Component {
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then((response) => {
         AsyncStorage.setItem("userData", JSON.stringify(response));
+        this.setState({ loading: false })
         this.props.navigate('UserShowPage');
     })
     .catch((error) => {

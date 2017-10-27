@@ -83,18 +83,18 @@ export default class UserShowPage extends Component {
                   <Review key={review.id} {...review} />
               )}
             </Card>
-             <ActionButton buttonColor="rgba(231,76,60,1)">
-              <ActionButton.Item buttonColor='#9b59b6' title="Find Bathroom" onPress={() => this.props.navigation.navigate('Map')}>
-                <Icon name="search" />
-              </ActionButton.Item>
-              <ActionButton.Item buttonColor='#3498db' title="Post Bathroom" onPress={() => this.props.navigation.navigate('Form')}>
-                <Icon name="add-location" />
-              </ActionButton.Item>
-              <ActionButton.Item buttonColor='#1abc9c' title="Logout" onPress={() => this.logout()}>
-                <Icon name="person" />
-              </ActionButton.Item>
-            </ActionButton>
            </ScrollView>
+           <ActionButton buttonColor="#007fff" style={styles.ActionButton}>
+            <ActionButton.Item buttonColor='#3F51B5' title="Find Bathroom" onPress={() => this.props.navigation.navigate('Map')}>
+              <Icon name="search" color='white' />
+            </ActionButton.Item>
+            <ActionButton.Item buttonColor='#0288D1' title="Post Bathroom" onPress={() => this.props.navigation.navigate('Form')}>
+              <Icon name="add-location" color='white' />
+            </ActionButton.Item>
+            <ActionButton.Item buttonColor='#03A9F4' title="Logout" onPress={() => this.logout()}>
+              <Icon name="person" color='white' />
+            </ActionButton.Item>
+          </ActionButton>
           </View>
         );
     }
@@ -105,6 +105,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     backgroundColor: '#F5FCFF'
+  },
+  ActionButton: {
+    position: 'absolute',
+    bottom: 0,
+    right: 10
   },
   h2: {
     color: '#555'
