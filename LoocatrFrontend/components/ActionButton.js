@@ -19,7 +19,7 @@ export default (props) => {
     }
   }
   return (
-    <ActionButton buttonColor="#007fff">
+    <ActionButton buttonColor="#4029b9">
      <ActionButton.Item buttonColor='#3F51B5' title="Find Bathroom" onPress={() => props.navigate('Map')}>
        <Icon name="search" color='white' />
      </ActionButton.Item>

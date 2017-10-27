@@ -84,7 +84,7 @@ export default class UserShowPage extends Component {
               )}
             </Card>
            </ScrollView>
-           <ActionButton buttonColor="#007fff" style={styles.ActionButton}>
+           <ActionButton buttonColor="#4029b9" style={styles.ActionButton}>
             <ActionButton.Item buttonColor='#3F51B5' title="Find Bathroom" onPress={() => this.props.navigation.navigate('Map')}>
               <Icon name="search" color='white' />
             </ActionButton.Item>

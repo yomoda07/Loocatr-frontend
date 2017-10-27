@@ -114,13 +114,13 @@ const styles = StyleSheet.create({
 
   input: {
     borderBottomWidth: 1,
-    borderColor: 'lightgrey',
+    borderColor: '#F5F5F5',
   },
   label: {
     paddingLeft: 10
   },
   buttonDiv: {
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#F5F5F5',
     padding: 20,
   },
 });
