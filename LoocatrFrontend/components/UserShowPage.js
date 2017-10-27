@@ -34,6 +34,7 @@ export default class UserShowPage extends Component {
       usedBathrooms: [],
       reviews: []
     };
+    this.navigateToBathroomInfoPage = this.navigateToBathroomInfoPage.bind(this);
   }
 
   componentDidMount() {
