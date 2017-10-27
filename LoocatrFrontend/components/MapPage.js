@@ -142,7 +142,7 @@ export default class MapPage extends Component<{}> {
   }
 
   renderPrivateBathroom() {
-    if (this.state.user_id !== null) {
+    if (this.state.user_id !== 'anonymous') {
       return <MapView>
               <MapView.Marker
                 pinColor={'red'}
