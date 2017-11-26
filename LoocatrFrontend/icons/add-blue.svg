@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>•a/icon/add-blue</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="•a/icon/add-blue" stroke="#297AE8" stroke-width="1.75">
+            <g id="map-marker" transform="translate(3.000000, 3.000000)">
+                <path d="M9,0 C13.9631045,0 18,4.03689551 18,9 C18,13.9619186 13.9631045,18 9,18 C4.03689551,18 0,13.9619186 0,9 C0,4.03689551 4.03689551,0 9,0" id="Fill-4"></path>
+            </g>
+            <g id="Group" transform="translate(7.000000, 7.000000)">
+                <path d="M10,5 L0,5" id="Path-3"></path>
+                <path d="M5,0 L5,10" id="Path-3"></path>
+            </g>
+        </g>
+    </g>
+</svg>
