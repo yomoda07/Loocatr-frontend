@@ -847,18 +847,16 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-
-						DevelopmentTeam = ARFDZ3WLU7;
+						DevelopmentTeam = MDCH7KNUF5;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = ARFDZ3WLU7;
-
+						DevelopmentTeam = MDCH7KNUF5;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = R89J96K37T;
+						DevelopmentTeam = MDCH7KNUF5;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
@@ -1372,10 +1370,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-
-				DEVELOPMENT_TEAM = ARFDZ3WLU7;
-
-
+				DEVELOPMENT_TEAM = MDCH7KNUF5;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1411,10 +1406,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-
-				DEVELOPMENT_TEAM = ARFDZ3WLU7;
-
-
+				DEVELOPMENT_TEAM = MDCH7KNUF5;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
@@ -1449,7 +1441,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-        DEVELOPMENT_TEAM = ARFDZ3WLU7;
+				DEVELOPMENT_TEAM = MDCH7KNUF5;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
@@ -1464,9 +1456,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.LoocatrFrontend;
-
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.LoocatrFrontend.kanji;
 				PRODUCT_NAME = LoocatrFrontend;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1481,9 +1471,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-
-				DEVELOPMENT_TEAM = ARFDZ3WLU7;
-
+				DEVELOPMENT_TEAM = MDCH7KNUF5;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
@@ -1498,10 +1486,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.LoocatrFrontend;
-
-
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.LoocatrFrontend.kanji;
 				PRODUCT_NAME = LoocatrFrontend;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1519,7 +1504,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = R89J96K37T;
+				DEVELOPMENT_TEAM = MDCH7KNUF5;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1561,7 +1546,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = R89J96K37T;
+				DEVELOPMENT_TEAM = MDCH7KNUF5;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
